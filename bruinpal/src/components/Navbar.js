@@ -14,7 +14,7 @@ const Navbar = () => {
       <div className="navbarMenu">
         <div>
           <NavLink to="/" className="linkmenuItem">
-            Home
+            About Us
           </NavLink>
         </div>
         <div>
