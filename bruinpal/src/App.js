@@ -9,7 +9,8 @@ function App() {
   return (
     <div>
       <Navbar />
-      <h1>TODO. Some contents needed</h1>
+      <h1>Need help?</h1>
+      <p>Bruins are here for you!</p>
       <img src={roycehall} alt="roycehall" className="mainpageImage" />
       <Footer />
     </div>

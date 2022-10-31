@@ -1,10 +1,12 @@
 import React from "react";
+import Navbar from "../components/Navbar";
 
 function Login() {
   return (
-    <main style={{ padding: "1rem 0" }}>
-      <h2>Login</h2>
-    </main>
+    <React.Fragment>
+      <Navbar />
+      <h1 className="comingSoon">(Login / Signup page)Coming Soon!</h1>
+    </React.Fragment>
   );
 }
 
