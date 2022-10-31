@@ -1,25 +1,29 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import SingleTask from "../components/tasks_components/SingleTask.js";
+import TaskList from "../components/tasks_components/TaskList.js";
 
 //TODO should read from database and map them into a table
+//react-table  https://kalacloud.com/blog/best-react-table-component/
+//Search bar reference: https://juejin.cn/post/7061863419636351006
 
 function Tasks() {
   return (
     <React.Fragment>
       <Navbar />
-      <h1 className="comingSoon">(Tasks page)Coming Soon!</h1>
+      <h1 className="comingSoon">Tasks page under construction. </h1>
+      <h1 className="comingSoon">Coming Soon!</h1>
       <p>Note to self: this looks ugly I'll beautify it soon</p>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Money</th>
-          <th>Task title</th>
-          <th>Task details</th>
-          <th>Status</th>
-        </tr>
-      </table>
+      <h2>Task List</h2>
+      <input type="text" id="search" name="search" />
+      <input type="submit" value="Search" placeholder="Task"/>
+      <label>Category</label>
+        <select name="Categories" id="lang">
+          <option value="tutoring">Tutoring</option>
+          <option value="swipetrade">Swipe Trade</option>
+          <option value="rideshare">Ride Share</option>
+        </select>
+            <input type="submit" value="Submit" />
+      <TaskList />
 
     </React.Fragment>
   );

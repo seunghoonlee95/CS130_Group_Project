@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import roycehall from "../src/images/roycehall.jpeg";
 
+
 function App() {
   return (
     <div>
