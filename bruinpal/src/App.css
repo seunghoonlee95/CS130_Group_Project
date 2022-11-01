@@ -46,9 +46,9 @@ margin: 0 2em;
   justify-content: center;
 }
 
-/* end navbar */
+/* navbar end */
 
-/* Footer */
+/* Footer  start*/
 .footer-container {
   background-color: lightblue;
   padding: 2rem;
@@ -116,14 +116,46 @@ margin: 0 2em;
       width: 100%;
 
   }
-
+  .btn {
+      width: 100%;
+  }
   .footer-link-wrapper {
       flex-direction: column;
   }
 }
-/* end Footer */
 
-.mainpageImage{
-  width: 100%;
-  height: 100%;
+/* footer end */
+
+
+.homepageBanner{
+  height: 90vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* display: grid; */
+  justify-content: flex-end;
+}
+
+.homepageBannerTitle h1{
+  font-size: 3re0m;
+  color: white;
+  padding: 2rem 2rem 0rem 1rem;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.homepageBannerTitle a{
+  font-size: 1.3rem;
+  color: white;
+  margin: 0 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.homepageBannerTitle a:hover{
+  font-size: 1.35rem;
+  color: #e9e9e9;
+  transition: 0.3s ease-out;
+
 }
