@@ -197,6 +197,16 @@ margin: 0 2em;
   font-weight: 800;
 }
 
+.text-center{
+  text-align: center;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+
+
 label {
   font-size: 14px;
   font-weight: 600;
