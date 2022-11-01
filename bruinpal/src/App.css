@@ -159,3 +159,8 @@ margin: 0 2em;
   transition: 0.3s ease-out;
 
 }
+
+.mainpageImage{
+  width: 100%;
+  height: 80vh;
+}
