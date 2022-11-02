@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Josefin+Sans:wght@300&display=swap');
-
-/* Navbar */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Josefin+Sans:wght@300&family=Prompt&family=Shalimar&display=swap');/* Navbar */
 .navbar{
   padding: 0.5em;
-  height: 64px;
+  height: 74px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -217,4 +216,72 @@ label {
   font-size: 14px;
   font-weight: 600;
   color: rgb(34, 34, 34);
+}
+
+.serviceIntro{
+  margin: 1rem;
+  font-weight: bold;
+  
+  display: flex;
+  font-family: 'Josefin+Sans';
+  justify-content: center;
+}
+
+.serviceWrapper img{
+  width: 240px;
+  height: 340px;
+}
+
+.serviceWrapper{
+  display: flex;
+  justify-content: space-around;
+  /* flex-wrap: wrap; */
+}
+
+.serviceCat{
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.serviceCat:hover{
+  transform: scale(1.05);
+  transition: 0.3s ease-out;
+}
+
+
+
+.serviceCat .description{
+  color: gray;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.trustWrapper{
+  display: flex;
+  margin: 2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.uclaLogoImg{
+  width: 120px;
+  height: 120px;
+}
+
+.signupLink{
+  display: flex;
+  margin-bottom: 2rem;
+  justify-content: center;
+  font-family: 'Prompt';
+  font-weight: bold;
+  text-decoration: underline;
+  color: skyblue;
 }
