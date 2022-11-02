@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import logo from "../images/logo.png";
+import TaskDropDown from "./TaskDropDown";
 
 const Navbar = () => {
   return (
@@ -19,9 +20,10 @@ const Navbar = () => {
             </NavLink>
           </div>
           <div>
-            <NavLink to="/tasks" className="linkmenuItem">
+            <TaskDropDown />
+            {/* <NavLink to="/tasks" className="linkmenuItem">
               Tasks
-            </NavLink>
+            </NavLink> */}
           </div>
           <div>
             <NavLink to="/loginsignup" className="linkmenuItem">

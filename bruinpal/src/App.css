@@ -46,6 +46,12 @@ margin: 0 2em;
   justify-content: center;
 }
 
+.taskDropDown button{
+  font-family: 'Josefin+Sans';
+  background-color: transparent !important;
+  border: transparent !important;
+}
+
 /* navbar end */
 
 /* Footer  start*/
