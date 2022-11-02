@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 
+//TODO http://localhost:3000/profile
 function Profile() {
   return (
     <React.Fragment>

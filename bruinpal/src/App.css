@@ -218,6 +218,11 @@ label {
   color: rgb(34, 34, 34);
 }
 
+/*TaskList styles*/
+.tasklist{
+  color:blue;
+}
+
 .serviceIntro{
   margin: 1rem;
   font-weight: bold;
@@ -285,3 +290,4 @@ label {
   text-decoration: underline;
   color: skyblue;
 }
+
