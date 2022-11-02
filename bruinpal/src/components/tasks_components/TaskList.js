@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 //TODO dig deeper for useMemo
 import { useTable } from "react-table";
 import DummyTasks from "./dummy_tasks.js";
@@ -21,6 +21,8 @@ import { makeStyle } from "@mui/material/styles";
 function TaskList() {
   const data = React.useMemo(() => DummyTasks.tasks, []);
   const columns = React.useMemo(() => DummyTasks.headers);
+
+  const [tasks, setTasks] = useState([]);
 
   const tableInstance = useTable({ columns, data });
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
