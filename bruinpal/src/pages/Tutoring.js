@@ -2,14 +2,14 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-function AboutUs() {
+function Tutoring() {
   return (
     <React.Fragment>
       <Navbar />
-      <h1 className="comingSoon">(About us page)Coming Soon!</h1>
+      <h1 className="comingSoon">(Tutoring page)Coming Soon!</h1>
       <Footer />
     </React.Fragment>
   );
 }
 
-export default AboutUs;
+export default Tutoring;
