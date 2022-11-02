@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import TaskList from "../components/tasks_components/TaskList.js";
 
 //TODO should read from database and map them into a table
@@ -24,7 +25,7 @@ function Tasks() {
         </select>
             <input type="submit" value="Submit" />
       <TaskList />
-
+      <Footer />
     </React.Fragment>
   );
 }
