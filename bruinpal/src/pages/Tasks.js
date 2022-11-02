@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TaskList from "../components/tasks_components/TaskList.js";
-import Footer from "../components/Footer";
 
 //TODO should read from database and map them into a table
 //react-table  https://kalacloud.com/blog/best-react-table-component/
