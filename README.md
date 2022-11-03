@@ -14,3 +14,6 @@ Open up two terminals
     2.1 $ node server.js
 ## 3. Open http://localhost:3000/ in browser
     3.3 If setup correctly will see YOUR EXPRESS BACKEND IS CONNECTED TO REACT in Console
+
+## TODO: Setup firebase auth
+https://firebase.google.com/docs/auth/web/firebaseui?authuser=0
