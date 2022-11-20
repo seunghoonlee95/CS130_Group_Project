@@ -22,7 +22,7 @@ function Home() {
         <div className="homepageBannerTitle">
           <h1>Need Help?</h1>
           <NavLink to="/aboutus" className="linkmenuItem">
-            Someone will be there for you ➜
+            Bruins will be there for you ➜
           </NavLink>
         </div>
       </div>

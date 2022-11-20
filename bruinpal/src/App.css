@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Josefin+Sans:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Josefin+Sans:wght@300&family=Prompt&family=Shalimar&display=swap');/* Navbar */
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Italiana&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 .navbar{
   padding: 0.5em;
   height: 74px;
@@ -8,6 +9,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: lightblue;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .logoImageWrapper{
@@ -32,7 +34,7 @@ margin: 0 2em;
 .linkmenuItem{
   color: white;
   text-decoration: none;
-  font-family: 'Josefin+Sans';
+  /* font-family: 'Josefin Sans'; */
 }
 
 .linkmenuItem:hover{
@@ -46,7 +48,7 @@ margin: 0 2em;
 }
 
 .taskDropDown button{
-  font-family: 'Josefin+Sans';
+  /* font-family: 'Josefin Sans'; */
   background-color: transparent !important;
   border: transparent !important;
 }
@@ -92,14 +94,14 @@ margin: 0 2em;
 
 .footer-link-items span {
   font-size: 24px;
-  font-family: 'Josefin+Sans';
+   /* font-family: 'Josefin+Sans'; */
   color: white;
   margin-bottom: 1rem;
 
 }
 .footer-link-items a{
   color: #fff;
-  font-family: 'Josefin+Sans';
+  /* font-family: 'Josefin Sans'; */
   text-decoration: none;
   margin-bottom: 8px;
 }
@@ -139,15 +141,17 @@ margin: 0 2em;
   background-size: cover;
   /* display: grid; */
   justify-content: flex-end;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .homepageBannerTitle h1{
-  font-size: 3re0m;
+  font-size: 8re0m;
   color: white;
   padding: 2rem 2rem 0rem 1rem;
   margin: 0;
   display: flex;
   justify-content: flex-end;
+  font-weight:bolder;
 }
 
 .homepageBannerTitle a{
@@ -228,7 +232,7 @@ label {
   font-weight: bold;
   
   display: flex;
-  font-family: 'Josefin+Sans';
+  /* font-family: 'Josefin Sans'; */
   justify-content: center;
 }
 
@@ -274,11 +278,13 @@ label {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight:bolder;
 }
 
 .uclaLogoImg{
-  width: 120px;
-  height: 120px;
+  width: 14vw;
+  height: auto;
 }
 
 .signupLink{
@@ -291,3 +297,26 @@ label {
   color: skyblue;
 }
 
+/***** Profile Page styles *****/
+.small-task-switch{
+  float: right;
+  display:flex;
+}
+.small-task-status-title-name{
+  float:left;
+  text-align: center;
+}
+.small-task-status-dot{
+  height:10px;
+  width:10px;
+  background-color:#00B087;
+  border-radius: 50%;
+  display: inline-block;
+  margin:auto 5px;
+}
+.small-task-title{
+  display: inline-block;
+}
+.small-task-money-location-deadine{
+  float:right;
+}

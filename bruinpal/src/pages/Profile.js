@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import UserCard from "../components/profile_components/UserCard.js"
 import InProgressCard from "../components/profile_components/InProgressCard.js"
 import MyPostingsCard from "../components/profile_components/MyPostingsCard.js"
-import ContactsCard from "../components/profile_components/ContactsCard.js"
+import ContactsCard from "../components/profile_components/SkillsCoursesCard.js"
 import {MDBCol, MDBContainer, MDBRow, MDBBreadcrumb, MDBBreadcrumbItem} from 'mdb-react-ui-kit';
 
 //DONE profile reference: https://mdbootstrap.com/docs/react/extended/profiles/
