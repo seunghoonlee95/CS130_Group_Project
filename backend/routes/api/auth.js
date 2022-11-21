@@ -18,10 +18,6 @@ router.post('/signup', async (req, res) => {
 router.post('/signin', async (req, res) => {
   
   const { email, password } = req.body;
-  console.log(email, password)
-  console.log(req.body)
-  console.log("test")
-  console.log(req.data)
   try {
     const user = await userService.authenticate(email, password);
     res.json(user);
@@ -30,6 +26,14 @@ router.post('/signin', async (req, res) => {
   }
 
 });
+
+router.post('/signout', async (req, res) => {
+  userService.logOut().then(() => {
+    res.status(201).json({msg: "logged out"})
+  }).catch(err => {
+    res.status(401).json({ error: err.message })
+  })
+})
 
 
 module.exports = router;
