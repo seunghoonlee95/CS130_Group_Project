@@ -1,13 +1,10 @@
 import React from "react";
 import * as ReactDOM from "react-dom/client";
-// import ReactDOM from "react-dom/client";
 import "./index.css";
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { render } from "react-dom";
-import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import Tasks from "./pages/Tasks";
 import LoginSignup from "./pages/LoginSignup";
@@ -30,7 +27,7 @@ root.render(
       <Route path="/tasks/tutoring" element={<Tutoring />} />
       <Route path="/tasks/swipetrade" element={<SwipeTrade />} />
       <Route path="/tasks/rideshare" element={<RideShare />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<Profile isOwner={true} />} />
     </Routes>
   </BrowserRouter>
 );

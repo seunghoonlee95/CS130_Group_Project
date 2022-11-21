@@ -9,7 +9,7 @@ function SmallTask(){
     return (
     <div className='small-task'>
         <div className='small-task-status-title-name'>
-            <div class='small-task-status-dot'></div>
+            <div className='small-task-status-dot'></div>
             <div className='small-task-title'>
                 <p>Dummy title</p>
             </div>

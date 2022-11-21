@@ -2,11 +2,11 @@ import React from "react";
 import {MDBCol, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardTitle,MDBCheckbox} from 'mdb-react-ui-kit';
 
 
-function ContactsCard() {
+function SkillsCoursesCard() {
   return (
     <MDBCard className="mb-4">
     <MDBCardTitle style={{margin:"10px"}}>
-      Skills & Courses Taken
+      Skills & Courses Taken (check to show to others)
     </MDBCardTitle>
       <MDBCardBody>
         <MDBRow>
@@ -31,4 +31,4 @@ function ContactsCard() {
   );
 }
 
-export default ContactsCard;
+export default SkillsCoursesCard;
