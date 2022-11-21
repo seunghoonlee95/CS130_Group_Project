@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react";
 //TODO dig deeper for useMemo
+import { NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import { useTable } from "react-table";
 import DummyTasks from "./dummy_tasks.js";
 import Table from "@mui/material/Table";
@@ -63,17 +65,20 @@ function TaskList() {
                 prepareRow(row);
                 return (
                   // Apply the row props
-                  <TableRow {...row.getRowProps}>
+
+                  <TableRow {...row.getRowProps} className="tableRow">
                     {
                       // Loop over the rows cells
                       row.cells.map((cell) => {
                         // Apply the cell props
                         return (
                           <TableCell {...cell.getCellProps}>
-                            {
-                              // Render the cell contents
-                              cell.render("Cell")
-                            }
+                            <NavLink to="/aboutus" className="taskLink">
+                              {
+                                // Render the cell contents
+                                cell.render("Cell")
+                              }
+                            </NavLink>
                           </TableCell>
                         );
                       })

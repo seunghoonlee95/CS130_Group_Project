@@ -2,6 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Josefin+Sans:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Josefin+Sans:wght@300&family=Prompt&family=Shalimar&display=swap');/* Navbar */
 @import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Italiana&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+#root{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
 .navbar{
   padding: 0.5em;
   height: 74px;
@@ -57,6 +65,7 @@ margin: 0 2em;
 
 /* Footer  start*/
 .footer-container {
+  margin-top: auto;
   background-color: lightblue;
   padding: 2rem;
   display: flex;
@@ -225,6 +234,11 @@ label {
 /*TaskList styles*/
 .tasklist{
   color:blue;
+}
+
+.taskLink{
+  color: black;
+  text-decoration: none;
 }
 
 .serviceIntro{
