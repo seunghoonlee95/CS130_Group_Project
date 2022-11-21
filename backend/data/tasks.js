@@ -1,6 +1,6 @@
 const tasks = [
     {
-        taskId: 1,
+        id: 1,
         category: "Tutoring",
         description: {placeholder: "will make a description object"},
         status: "In Progress",
@@ -8,7 +8,7 @@ const tasks = [
         tasker: 243434343
     },
     {
-        taskId: 2,
+        id: 2,
         category: "Carpooling",
         description: {placeholder: "will make a description object"},
         status: "In Progress",
@@ -16,7 +16,7 @@ const tasks = [
         tasker: 243434343
     },
     {
-        taskId: 3,
+        id: 3,
         category: "Dining Swipes",
         description: {placeholder: "will make a description object"},
         status: "In Progress",

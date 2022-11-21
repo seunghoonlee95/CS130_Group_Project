@@ -21,11 +21,14 @@ app.get('/express_backend_test', (req, res) => {
 //all task apis
 app.use('/api/tasks', require('./routes/api/tasks'));
 
-//all firebase related calls
-app.use('api/database', require('./routes/api/database') );
+//user login, signup, logout
+app.use('/api/auth', require('./routes/api/auth'));
 
-//all signup, login, user auth
-app.use('api/user', require('./routes/api/user') );
+//all firebase related calls
+app.use('/api/database', require('./routes/api/database') );
+
+//all user changes
+app.use('/api/user', require('./routes/api/user') );
 
 //all third party calls: stripe, google places, twilio, etc
-app.use('api/lib', require('./routes/api/lib') );
+app.use('/api/lib', require('./routes/api/lib') );

@@ -1,93 +1,124 @@
 import React, { useState } from "react";
 
-export default function (props) {
-  let [authMode, setAuthMode] = useState("signin");
-
-  const changeAuthMode = () => {
-    setAuthMode(authMode === "signin" ? "signup" : "signin");
-  };
-
-  if (authMode === "signin") {
-    return (
-      <div className="Auth-form-container">
-        <form className="Auth-form">
-          <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
-            <div className="text-center">
-              Not registered yet?{" "}
-              <span className="link-primary" onClick={changeAuthMode}>
-                Sign Up
-              </span>
-            </div>
-            <div className="form-group mt-3">
-              <label>Email address</label>
-              <input
-                type="email"
-                className="form-control mt-1"
-                placeholder="Enter email"
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Password</label>
-              <input
-                type="password"
-                className="form-control mt-1"
-                placeholder="Enter password"
-              />
-            </div>
-            <div className="d-grid gap-2 mt-3">
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
-            </div>
-            <p className="text-center mt-2">
-              Forgot <a href="#">password?</a>
-            </p>
-          </div>
-        </form>
-      </div>
-    );
+//TODO: redirect to page once logged in
+//show error on invalid login
+//Note: to regsiter/login only email and password will be needed
+//once logged in, go into account home to set username, phone number, skills, etc
+class Auth extends React.Component{
+ constructor(props){
+  super(props);
+  this.state = {
+    loggedIn: false,
+    user: {},
+    signup: false,
+    invalidLogin: false,
+    invalidSignUp: false,
+    errorMessage: ""
   }
 
+  this.checkSignIn = this.checkSignIn.bind(this);
+  this.register = this.register.bind(this);
+  this.handleLogout = this.handleLogout.bind(this);
+ }
+
+ changeMode = () => {
+  this.setState({ signup: !this.state.signup})
+ }
+
+ handleLogout = (event) => {
+  const requestOptions = {
+    method: "post",
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+  }
+  fetch('api/auth/signout', requestOptions).then(res => res.json()).then(result => {
+    if(result.error){
+      console.log('Error Logging Out. Please try again.')
+      console.log(result)
+    }else{
+      this.setState({loggedIn:false, user: {}})
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+ }
+
+ checkSignIn (event){
+  const formData = new FormData(event.currentTarget);
+  event.preventDefault();
+
+  var object = {};
+  formData.forEach((value, key) => object[key] = value);
+  var data = JSON.stringify(object);
+
+  const requestOptions = {
+    method: "post",
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: data
+  }
+  fetch('api/auth/signin', requestOptions).then(res => res.json()).then(result => {
+    if(result.error){
+      console.log(result)
+      this.setState({ invalidLogin: true })
+    }else{
+      this.setState({loggedIn:true, user: result.user, invalidLogin: false})
+    }
+  }).catch(err => {
+    console.log(err)
+    console.log("handle errors later plz")
+  })
+ }
+
+ register(event){
+  const formData = new FormData(event.currentTarget);
+  event.preventDefault();
+
+  var object = {};
+  formData.forEach((value, key) => object[key] = value);
+  var data = JSON.stringify(object);
+
+  const requestOptions = {
+    method: "post",
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: data
+  }
+  fetch('api/auth/signup', requestOptions).then(res => res.json()).then(result => {
+    if(result.error){
+      console.log(result)
+      this.setState({ invalidSignUp: true, errorMessage: result.error })
+    }else{
+      this.setState({loggedIn:true, user: result.user, invalidSignUp: false})
+    }
+  }).catch(err => {
+    console.log(err)
+    console.log("handle errors later plz")
+  })
+ }
+
+ signUp(){
   return (
-    <div className="Auth-form-container">
-      <form className="Auth-form">
+      <div className="Auth-form-container">
+      <form className="Auth-form" onSubmit={this.register}>
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Sign Up</h3>
+          {this.state.invalidSignUp &&
+            <p>{this.state.errorMessage}</p>
+          }
           <div className="text-center">
             Already registered?{" "}
-            <span className="link-primary" onClick={changeAuthMode}>
+            <span className="link-primary" onClick={this.changeMode}>
               Sign In
             </span>
           </div>
-          <div className="form-group mt-3">
-            <label>Full Name</label>
-            <input
-              type="email"
-              className="form-control mt-1"
-              placeholder="e.g Danny Lee"
-            />
-          </div>
-          <div className="form-group mt-3">
-            <label>UID</label>
-            <input
-              type="uid"
-              className="form-control mt-1"
-              placeholder="e.g 105128000"
-            />
-          </div>
-          <div className="form-group mt-3">
-            <label>Major</label>
-            <input
-              type="major"
-              className="form-control mt-1"
-              placeholder="e.g Computer Science"
-            />
-          </div>
+          
+          
           <div className="form-group mt-3">
             <label>Email address</label>
             <input
               type="email"
+              name="email"
               className="form-control mt-1"
               placeholder="Email Address"
             />
@@ -96,6 +127,7 @@ export default function (props) {
             <label>Password</label>
             <input
               type="password"
+              name="password"
               className="form-control mt-1"
               placeholder="Password"
             />
@@ -111,5 +143,96 @@ export default function (props) {
         </div>
       </form>
     </div>
-  );
+  )
+ }
+
+ signIn = () => {
+    return(
+      <div className="Auth-form-container">
+          <form className="Auth-form" onSubmit={this.checkSignIn}>
+            <div className="Auth-form-content">
+              <h3 className="Auth-form-title">Sign In</h3>
+              <div className="text-center">
+                Not registered yet?{" "}
+                <span id="auth-page-sign-up-button" className="link-primary" onClick={this.changeMode}>
+                 <a>Sign Up</a> 
+                </span>
+              </div>
+              { this.state.invalidLogin && 
+              <div>
+                <br/>
+                <p>Your login credentials could not be verified, please try again.</p>
+              </div>
+            
+              }
+              <div className="form-group mt-3">
+                <label>Email address</label>
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control mt-1"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control mt-1"
+                  placeholder="Enter password"
+                />
+              </div>
+              <div className="d-grid gap-2 mt-3">
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+              <p className="text-center mt-2">
+                Forgot <a href="#">password?</a>
+              </p>
+            </div>
+          </form>
+        </div>
+    )
+  }
+
+  logOut = () => {
+    //TODO: maybe navigate to user page or something else?
+    return (
+      <div className="d-grid gap-2 mt-3">
+          <br/>
+          <button type="submit" className="btn btn-primary" onClick={this.handleLogout}>
+              Logout
+          </button>
+          <br/>
+      </div>
+    )
+  }
+
+
+
+ render(){
+  if(this.state.loggedIn){
+    return(
+      <div>
+        { this.logOut() }
+      </div>
+    )
+  }
+  else if(this.state.signup){
+    return (
+      <div>
+        { this.signUp() }
+      </div>
+    )
+  }
+  return (
+    <div>
+      { this.signIn() }
+    </div>
+  )
+ }
 }
+
+export default Auth;

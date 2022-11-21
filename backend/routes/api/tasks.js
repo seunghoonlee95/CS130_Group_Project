@@ -9,17 +9,6 @@ const Task = require('../../data/Task');
 // temp storage will replace with firestore later
 const allTasks = new TaskList();
 
-/*
-Return given task object by id
-*/
-router.get('/:id', (req, res) => {
-    const isFound = tasks.some(task => task.id === parseInt(req.params.id));
-    if(isFound){
-        res.json(tasks.filter(task => task.id === parseInt(req.params.id)));
-    } else{
-        res.status(400).json({ msg: `No task with id of ${req.params.id}` });
-    }  
-});
 
 // return list of all tasks
 router.get('/all', (req, res) => {
@@ -38,6 +27,19 @@ router.post('/new', (req, res) => {
         res.status(404).json({ error: err.message || err.toString() });
     }
 })
+
+
+/*
+Return given task object by id
+*/
+router.get('/:id', (req, res) => {
+    const isFound = tasks.some(task => task.id === parseInt(req.params.id));
+    if(isFound){
+        res.json(tasks.filter(task => task.id === parseInt(req.params.id)));
+    } else{
+        res.status(400).json({ msg: `No task with id of ${req.params.id}` });
+    }  
+});
 
 
 
