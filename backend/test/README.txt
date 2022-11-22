@@ -1,4 +1,6 @@
-Using Postman for manual smoke tests. Automated unit tests will be added later
+TODO: Add tests for auth, and firestore tasks and user CRUD operations
+Save these in postman collection to auto-run
+
 
 Postman Tests:
 

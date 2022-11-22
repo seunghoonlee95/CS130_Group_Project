@@ -29,6 +29,11 @@ router.post('/new', (req, res) => {
 })
 
 
+router.post('/update', (req, res) => {
+
+})
+
+
 /*
 Return given task object by id
 */
