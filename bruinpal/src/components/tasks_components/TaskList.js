@@ -11,6 +11,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { makeStyle } from "@mui/material/styles";
+import TaskDetails from "../../pages/TaskDetails";
 
 //TODO should read from database and map them into a table
 //react-table  https://kalacloud.com/blog/best-react-table-component/
@@ -71,14 +72,27 @@ function TaskList() {
                       // Loop over the rows cells
                       row.cells.map((cell) => {
                         // Apply the cell props
+                        // console.log("cell : ", cell);
+                        // console.log(cell.row.original);
                         return (
                           <TableCell {...cell.getCellProps}>
-                            <NavLink to="/aboutus" className="taskLink">
+                            <Link
+                              to="/taskDetails"
+                              state={{
+                                task_customername: `${cell.row.original.customername}`,
+                                task_category: `${cell.row.original.category}`,
+                                task_price: `${cell.row.original.price}`,
+                                task_description: `${cell.row.original.description}`,
+                                task_timeLocation: `${cell.row.original.timelocation}`,
+                                task_status: `${cell.row.original.status}`,
+                              }}
+                              className="taskLink"
+                            >
                               {
                                 // Render the cell contents
                                 cell.render("Cell")
                               }
-                            </NavLink>
+                            </Link>
                           </TableCell>
                         );
                       })

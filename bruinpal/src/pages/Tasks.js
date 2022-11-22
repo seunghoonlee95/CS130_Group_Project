@@ -11,9 +11,6 @@ function Tasks() {
   return (
     <React.Fragment>
       <Navbar />
-      <h1 className="comingSoon">Tasks page under construction. </h1>
-      <h1 className="comingSoon">Coming Soon!</h1>
-      <p>Note to self: this looks ugly I'll beautify it soon</p>
       <h2>Task List</h2>
       <div className="filter">
         <input type="text" id="search" name="search" />
