@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react";
 //TODO dig deeper for useMemo
+import { NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import { useTable } from "react-table";
 import DummyTasks from "./dummy_tasks.js";
 import Table from "@mui/material/Table";
@@ -9,6 +11,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { makeStyle } from "@mui/material/styles";
+import TaskDetails from "../../pages/TaskDetails";
 
 //TODO should read from database and map them into a table
 //react-table  https://kalacloud.com/blog/best-react-table-component/
@@ -63,17 +66,33 @@ function TaskList() {
                 prepareRow(row);
                 return (
                   // Apply the row props
-                  <TableRow {...row.getRowProps}>
+
+                  <TableRow {...row.getRowProps} className="tableRow">
                     {
                       // Loop over the rows cells
                       row.cells.map((cell) => {
                         // Apply the cell props
+                        // console.log("cell : ", cell);
+                        // console.log(cell.row.original);
                         return (
                           <TableCell {...cell.getCellProps}>
-                            {
-                              // Render the cell contents
-                              cell.render("Cell")
-                            }
+                            <Link
+                              to="/taskDetails"
+                              state={{
+                                task_customername: `${cell.row.original.customername}`,
+                                task_category: `${cell.row.original.category}`,
+                                task_price: `${cell.row.original.price}`,
+                                task_description: `${cell.row.original.description}`,
+                                task_timeLocation: `${cell.row.original.timelocation}`,
+                                task_status: `${cell.row.original.status}`,
+                              }}
+                              className="taskLink"
+                            >
+                              {
+                                // Render the cell contents
+                                cell.render("Cell")
+                              }
+                            </Link>
                           </TableCell>
                         );
                       })

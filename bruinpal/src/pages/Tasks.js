@@ -11,19 +11,18 @@ function Tasks() {
   return (
     <React.Fragment>
       <Navbar />
-      <h1 className="comingSoon">Tasks page under construction. </h1>
-      <h1 className="comingSoon">Coming Soon!</h1>
-      <p>Note to self: this looks ugly I'll beautify it soon</p>
       <h2>Task List</h2>
-      <input type="text" id="search" name="search" />
-      <input type="submit" value="Search" placeholder="Task" />
-      <label>Category</label>
-      <select name="Categories" id="lang">
-        <option value="tutoring">Tutoring</option>
-        <option value="swipetrade">Swipe Trade</option>
-        <option value="rideshare">Ride Share</option>
-      </select>
-      <input type="submit" value="Submit" />
+      <div className="filter">
+        <input type="text" id="search" name="search" />
+        <input type="submit" value="Search" placeholder="Task" />
+        <label>Category</label>
+        <select name="Categories" id="lang">
+          <option value="tutoring">Tutoring</option>
+          <option value="swipetrade">Swipe Trade</option>
+          <option value="rideshare">Ride Share</option>
+        </select>
+        <input type="submit" value="Submit" />
+      </div>
       <TaskList />
       <Footer />
     </React.Fragment>
