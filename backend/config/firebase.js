@@ -1,5 +1,5 @@
 const firebase = require("firebase/app");
-const {getFirestore, setDoc} = require("firebase/firestore");
+const {getFirestore, setDoc, doc, collection, getDoc, where, getDocs} = require("firebase/firestore");
 const { 
   getAuth, 
   signInWithEmailAndPassword,
@@ -24,29 +24,84 @@ firebase.initializeApp(firebaseConfig);
 const auth = getAuth();
 
 //Initialize Firestore DB
-const firestore = getFirestore();
+const db = getFirestore();
 
-
+/*
 
 //users
 //each document in collection accesable by user email (ex, 'users/test@test.com' to pull test account info)
-const users = doc(firestore, 'users'); 
-exports.updateUser = (email, userData) =>
-  setDoc((users+"/"+email), userData, {merge: true} )
-
+exports.updateUser = (email, userData) => {
+  const userRef = doc(db, 'users/'+email)
+  setDoc(userRef, userData, {merge: true} )
+}
+*/
 //setDoc(users, docData, {merge: true}) //updates if already exists, creates new one if not exist
+
+
 
 //tasks
 //each document(task) in collection accesible by task key (ex, 'tasks/1' to get task 1 in dummy_tasks.js on frontend)
-const tasks = doc(firestore, 'tasks');
+
+
+//get current Task Counter
+exports.taskCounter = async () => {
+  const taskCounterRef = doc(db, "tasks", "taskCounter")
+  //const taskCounterRef = db.collection("tasks").doc("taskCounter")
+  const counter = await getDoc(taskCounterRef)
+  return counter.data()["counter"]
+  
+}
+
+
+//update Task Counter
+exports.incrementTaskCounter = async () => {
+  const taskCounterRef =  doc(db, "tasks", "taskCounter")
+  const curr = await module.exports.taskCounter()
+  await setDoc(taskCounterRef, {counter: (curr+1)})
+  //firestore.setDoc((tasks+'/taskCounter'), count + 1)
+}
+  
+
 
 //update a single task
-exports.updateTask = (key, taskData) =>
-  setDoc((tasks+"/"+key), taskData, {merge: true})
+exports.updateTask = async (key, taskData) => {
+   const taskRef = doc(db, "tasks", `${key}`)
+   await setDoc(taskRef, taskData, {merge: true})
+}
+  //setDoc((tasks+"/"+key), taskData, {merge: true})
 
-//get all open tasks(real-time updates)
+exports.getTaskByKey = async (key) => {
+  const taskRef = doc(db, "tasks", `${key}`)
+  const task = await getDoc(taskRef)
+  return task.data()
+}
 
-//get all tasks associated with a user
+//get all tasks
+exports.getAllTasks = async () => {
+  const taskRef = collection(db, "tasks") 
+  const taskList = []
+  const snapshot = await getDocs(taskRef)
+  snapshot.forEach((doc) => {
+    const data = doc.data()
+    if(data.hasOwnProperty('key')){
+      taskList.push(data)
+    }
+  })
+  return taskList
+}
+
+//get all tasks with a specific status
+exports.getStatusTasks = async () => {
+  const taskRef = collection(db, "tasks") 
+  const taskList = []
+  const snapshot = await getDocs(taskRef)
+  snapshot.forEach((doc) => {
+    const data = doc.data()
+    if(data.hasOwnProperty('key'))
+    taskList.push(data)
+  })
+  return taskList
+}
 
 
 
