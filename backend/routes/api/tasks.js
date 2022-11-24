@@ -67,7 +67,7 @@ router.post('/update', async (req, res) => {
     try {
         const currKey = await userService.taskCounter()
         if(key >= currKey){
-            throw `Task with key: ${key} has not been created`
+            throw {message:`Task with key: ${key} has not been created`}
         }else{
             await userService.updateTask(key, req.body)
             res.status(200).json({ msg: 'Success'})
@@ -90,7 +90,7 @@ router.get('/:key', async(req, res) => {
             const task = await userService.getTaskByKey(key)
             res.status(200).json(task)
         }else{
-            throw `Task with key ${key} has not been created`
+            throw {message: `Task with key ${key} has not been created`}
         }
     } catch(err){
         res.status(404).json({ error: err.message || err.toString() });

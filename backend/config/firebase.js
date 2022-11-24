@@ -5,6 +5,7 @@ const {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  updateProfile
  } = require("firebase/auth");
 
 // Your web app's Firebase configuration
@@ -29,15 +30,43 @@ const db = getFirestore();
 /*
 
 //users
-//each document in collection accesable by user email (ex, 'users/test@test.com' to pull test account info)
+//user will store: email, name, tasker(bool), username, tasksCreated(list of task keys), tasksAccepted(empty if tasker = false)
+//each document in collection accesable by username (ex, 'users/testAccount1' to pull test account info)
 exports.updateUser = (email, userData) => {
   const userRef = doc(db, 'users/'+email)
   setDoc(userRef, userData, {merge: true} )
 }
 */
 //setDoc(users, docData, {merge: true}) //updates if already exists, creates new one if not exist
+exports.checkEmail = async (email) => {
+  const userRef = doc(db, "users", `${email}`)
+  const account = await getDoc(userRef)
+  return !account.exists()
+}
 
+exports.checkUsername = async (username) => {
+  const userRef = collection(db, "users")
+  const snapshot = await getDocs(userRef)
+  let safe = true
+  snapshot.forEach((doc) => {
+    const data = doc.data()
+    if(data.username === username){
+      safe = false
+    }
+  })
+  return safe
+}
 
+exports.updateUser = async (email, userData) => {
+  const userRef = doc(db, "users", `${email}`)
+  await setDoc(userRef, userData, {merge: true})
+}
+
+exports.getUserInfo = async (email) => {
+  const userRef = doc(db, "users", `${email}`)
+  const userSnapshot = await getDoc(userRef)
+  return userSnapshot.data()
+}
 
 //tasks
 //each document(task) in collection accesible by task key (ex, 'tasks/1' to get task 1 in dummy_tasks.js on frontend)
@@ -106,8 +135,9 @@ exports.getStatusTasks = async () => {
 
 
 //Auth functions
-exports.addUser = (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password);
+exports.addUser = (email, password) =>{
+  createUserWithEmailAndPassword(auth, email, password)
+}
 
 exports.authenticate = (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
