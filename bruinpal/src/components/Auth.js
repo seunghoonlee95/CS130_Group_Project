@@ -7,12 +7,13 @@ import React, { useState } from "react";
 class Auth extends React.Component{
  constructor(props){
   super(props);
-  this.state = {
+  this.state = JSON.parse(window.localStorage.getItem('state')) || {
     loggedIn: false,
-    user: {},
+    userInfo: {},
     signup: false,
     invalidLogin: false,
     invalidSignUp: false,
+    username: "",
     errorMessage: ""
   }
 
@@ -20,6 +21,11 @@ class Auth extends React.Component{
   this.register = this.register.bind(this);
   this.handleLogout = this.handleLogout.bind(this);
  }
+
+ setState(state) {
+  window.localStorage.setItem('state', JSON.stringify(state));
+  super.setState(state);
+  }
 
  changeMode = () => {
   this.setState({ signup: !this.state.signup})
@@ -36,7 +42,7 @@ class Auth extends React.Component{
       console.log('Error Logging Out. Please try again.')
       console.log(result)
     }else{
-      this.setState({loggedIn:false, user: {}})
+      this.setState({loggedIn:false,username: "", userInfo: {}})
     }
   }).catch(err => {
     console.log(err)
@@ -62,7 +68,7 @@ class Auth extends React.Component{
       console.log(result)
       this.setState({ invalidLogin: true })
     }else{
-      this.setState({loggedIn:true, user: result.user, invalidLogin: false})
+      this.setState({loggedIn:true, invalidLogin: false})
     }
   }).catch(err => {
     console.log(err)
@@ -86,14 +92,12 @@ class Auth extends React.Component{
   }
   fetch('api/auth/signup', requestOptions).then(res => res.json()).then(result => {
     if(result.error){
-      console.log(result)
       this.setState({ invalidSignUp: true, errorMessage: result.error })
     }else{
-      this.setState({loggedIn:true, user: result.user, invalidSignUp: false})
+      this.setState({loggedIn:true, invalidSignUp: false})
     }
   }).catch(err => {
     console.log(err)
-    console.log("handle errors later plz")
   })
  }
 
@@ -112,8 +116,15 @@ class Auth extends React.Component{
               Sign In
             </span>
           </div>
-          
-          
+          <div className="form-group mt-3">
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              className="form-control mt-1"
+              placeholder="Username"
+            />
+          </div>
           <div className="form-group mt-3">
             <label>Email address</label>
             <input
@@ -130,6 +141,7 @@ class Auth extends React.Component{
               name="password"
               className="form-control mt-1"
               placeholder="Password"
+              minLength={6}
             />
           </div>
           <div className="d-grid gap-2 mt-3">

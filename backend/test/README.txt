@@ -168,6 +168,15 @@ Response: {
 Auth Tests
 
 -------------------------------------------------------------
+User Tests
 
+1. Get User Data by username
+GET: localhost:3000/api/user/test1
+Response:
+{
+    "username": "test1",
+    "password": "testing",
+    "email": "test1@test.com"
+}
 -------------------------------------------------------------
 -------------------------------------------------------------
