@@ -24,7 +24,7 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/loginsignup" element={<LoginSignup />} />
-      <Route path="/tasks" element={<Tasks category='all'/>} />
+      <Route path="/tasks" element={<Tasks category="all" />} />
       <Route path="/taskdetails" element={<TaskDetails />} />
       <Route path="/profile" element={<Profile isOwner={true} />} />
       <Route path="/taskCRUD" element={<TaskCRUD />} />
