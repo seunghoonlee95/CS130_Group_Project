@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Navigate} from 'react-router-dom';
 
 //TODO: redirect to page once logged in
 //show error on invalid login
@@ -9,7 +10,6 @@ class Auth extends React.Component{
   super(props);
   this.state = JSON.parse(window.localStorage.getItem('state')) || {
     loggedIn: false,
-    userInfo: {},
     signup: false,
     invalidLogin: false,
     invalidSignUp: false,
@@ -20,6 +20,9 @@ class Auth extends React.Component{
   this.checkSignIn = this.checkSignIn.bind(this);
   this.register = this.register.bind(this);
   this.handleLogout = this.handleLogout.bind(this);
+  if(window.localStorage.getItem('loggedIn') === null){
+    window.localStorage.setItem('loggedIn', 'false')
+  }
  }
 
  setState(state) {
@@ -31,6 +34,7 @@ class Auth extends React.Component{
   this.setState({ signup: !this.state.signup})
  }
 
+ 
  handleLogout = (event) => {
   const requestOptions = {
     method: "post",
@@ -43,6 +47,8 @@ class Auth extends React.Component{
       console.log(result)
     }else{
       this.setState({loggedIn:false,username: "", userInfo: {}})
+      window.localStorage.setItem('loggedIn', 'false');
+      window.location.reload(false);
     }
   }).catch(err => {
     console.log(err)
@@ -69,7 +75,25 @@ class Auth extends React.Component{
       this.setState({ invalidLogin: true })
     }else{
       this.setState({loggedIn:true, invalidLogin: false})
+      window.localStorage.setItem('loggedIn', 'true');
+      const userReqOpt = {
+        method: "get",
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+      }
+      console.log('get user data from database: ', JSON.parse(data))
+      const email = JSON.parse(data).email
+      fetch(`api/user/${email}`, userReqOpt).then(res => res.json()).then(result => {
+        if(result.error){
+          console.log(result)
+          this.setState({ invalidLogin: true })
+        }else{
+          console.log(result.userData)
+          window.localStorage.setItem('userInfo', JSON.stringify(result.userData))
+        }
+      })
     }
+    //window.location.reload(false);
   }).catch(err => {
     console.log(err)
     console.log("handle errors later plz")
@@ -82,6 +106,9 @@ class Auth extends React.Component{
 
   var object = {};
   formData.forEach((value, key) => object[key] = value);
+  object.taskAccepted = []
+  object.taskCreated = []
+  object.tasker = false
   var data = JSON.stringify(object);
 
   const requestOptions = {
@@ -94,7 +121,9 @@ class Auth extends React.Component{
     if(result.error){
       this.setState({ invalidSignUp: true, errorMessage: result.error })
     }else{
-      this.setState({loggedIn:true, invalidSignUp: false})
+      this.setState({loggedIn:true, invalidSignUp: false});
+      console.log(result)
+      window.localStorage.setItem('userInfo', JSON.stringify(result.userData))
     }
   }).catch(err => {
     console.log(err)
@@ -227,8 +256,9 @@ class Auth extends React.Component{
  render(){
   if(this.state.loggedIn){
     return(
+      //<Navigate to='/' />  
       <div>
-        { this.logOut() }
+        {this.logOut()}
       </div>
     )
   }

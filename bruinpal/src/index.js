@@ -23,11 +23,8 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/loginsignup" element={<LoginSignup />} />
-      <Route path="/tasks" element={<Tasks />} />
+      <Route path="/tasks" element={<Tasks category='all'/>} />
       <Route path="/taskdetails" element={<TaskDetails />} />
-      <Route path="/tasks/tutoring" element={<Tutoring />} />
-      <Route path="/tasks/swipetrade" element={<SwipeTrade />} />
-      <Route path="/tasks/rideshare" element={<RideShare />} />
       <Route path="/profile" element={<Profile isOwner={true} />} />
     </Routes>
   </BrowserRouter>
