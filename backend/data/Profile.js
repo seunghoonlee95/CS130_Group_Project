@@ -1,8 +1,11 @@
 class Profile {
-  constructor({ firstName, lastName, email }) {
+  constructor({ firstName, lastName, email, venmoHandle }) {
     this.firstName = firstName;
     this.lastname = lastName;
     this.email = email;
+    this.venmoHandle = venmoHandle;
+    this.tasksCompleted = [];
+    this.tasksPurchased = [];
   }
 
   updateName(firstName, lastName) {
@@ -18,7 +21,7 @@ class Profile {
     this.phoneNumber = phoneNumber;
   }
 
-  getProfleType() {
+  getProfileType() {
     return "Customer";
   }
 }
@@ -26,11 +29,16 @@ class Profile {
 // once seller behavior activated, pass parameters of regular profile
 // into the seller profile
 class SellerProfile {
-  constructor(firstName, lastName, email) {
-    super(firstName, lastName, email);
-    // transcript must be passed as the binary of the ucla
-    // unofficial pdf upload
-    this.classesCompleted = [];
+  constructor(firstName, lastName, email, venmoHandle) {
+    super(firstName, lastName, email, venmoHandle);
+    // transcript must be passed as the html page returned
+    // when students open the unofficial transcript page on
+    // my ucla
+    this.transcript = null;
+    this.tutor = false;
+    this.classesTutoring = []; // list of classes student elects to tutor from pre made list
+    this.swipeSeller = false;
+    this.carpooler = false;
   }
 
   setTranscript(transcript) {
@@ -42,10 +50,26 @@ class SellerProfile {
     // taken, and the grades the received
   }
 
-  filterClassesCompleted(gradeCutOff) {
-    // return classes from classesCompleted array where seller obtained a
-    // grade >= gradeCutOff specified this is to filter who to send the task to
-    // on the cutsomer side
+  toggleTutor() {
+    this.tutor = !this.tutor;
+  }
+
+  toggleSwiper() {
+    this.swipeSeller = !this.swipeSeller;
+  }
+
+  toggleCarpooler() {
+    this.carpooler = !this.carpooler;
+  }
+
+  setClassToTutor(c) {
+    if (!this.classesTutoring.includes(c)) {
+      this.classesTutoring.push(c);
+    }
+  }
+
+  removeClassToTutor(c) {
+    this.classesTutoring.push(c);
   }
 
   getProfileType() {
@@ -53,4 +77,4 @@ class SellerProfile {
   }
 }
 
-module.exports = Profile;
+export default Profile;
