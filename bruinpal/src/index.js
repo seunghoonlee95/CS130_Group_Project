@@ -13,6 +13,7 @@ import SwipeTrade from "./pages/SwipeTrade";
 import RideShare from "./pages/RideShare";
 import Profile from "./pages/Profile";
 import TaskDetails from "./pages/TaskDetails";
+import TaskCRUD from "./components/tasks_components/taskCRUD";
 
 const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
@@ -26,6 +27,7 @@ root.render(
       <Route path="/tasks" element={<Tasks category='all'/>} />
       <Route path="/taskdetails" element={<TaskDetails />} />
       <Route path="/profile" element={<Profile isOwner={true} />} />
+      <Route path="/taskCRUD" element={<TaskCRUD />} />
     </Routes>
   </BrowserRouter>
 );

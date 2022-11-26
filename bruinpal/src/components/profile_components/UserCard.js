@@ -11,8 +11,10 @@ import {
 } from 'mdb-react-ui-kit';
 import Stars from "./Stars"
 import { Button } from "bootstrap";
+import { Link } from "react-router-dom";
 
-//DONE fixed MDBIcons not displaying error. ref: https://stackoverflow.com/questions/54380295/mdbicon-not-displaying-icons-in-react-app
+//need to add more fields for user info: make sure to update backend register/login calls and frontend Auth.js also when adding these
+//fields!!!!!
 class UserCard extends React.Component{
   constructor(props){
     super(props);
@@ -27,6 +29,7 @@ class UserCard extends React.Component{
 
   updateUserInfo(){
     console.log('TODO')
+    //make easy form to fill in tasker or now, skill list?
   }
   renderUserInfo(){
     return (
@@ -80,7 +83,9 @@ class UserCard extends React.Component{
   render(){
     return(
       <div>
-        <button type="button">Create New Task</button>
+        <Link to="/taskCRUD">
+            Create New Task
+        </Link>
         {this.renderUserInfo()}
       </div>
     )
