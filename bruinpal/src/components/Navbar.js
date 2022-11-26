@@ -5,6 +5,7 @@ import logo from "../images/logo.png";
 import TaskDropDown from "./TaskDropDown";
 
 const Navbar = () => {
+  let loggedIn = window.localStorage.getItem('loggedIn')
   return (
     <div>
       <nav className="navbar">
@@ -25,11 +26,27 @@ const Navbar = () => {
               Tasks
             </NavLink> */}
           </div>
+          {(loggedIn === 'false') &&
           <div>
             <NavLink to="/loginsignup" className="linkmenuItem">
               Login / Sign Up
             </NavLink>
           </div>
+          }
+          {(loggedIn === 'true') && 
+            <div>
+            <NavLink to="/loginsignup" className="linkmenuItem">
+              Logout
+            </NavLink>
+          </div>
+          }
+           {(loggedIn === 'true') && 
+            <div>
+            <NavLink to="/profile" className="linkmenuItem">
+              Profile
+            </NavLink>
+          </div>
+          }
         </div>
       </nav>
     </div>

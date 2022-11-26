@@ -6,15 +6,15 @@ const router = express.Router();
 const userService = require('../../config/firebase')
 
 router.post('/signup', async (req, res) => {
-  const { username, email, password} = req.body;
+  const { username, email, password, taskAccepted, taskCreated, tasker} = req.body;
   try {
     const isValidUsername = await userService.checkUsername(username)
     if(isValidUsername){
       const isValidEmail = await userService.checkEmail(email);
       if(isValidEmail){
         const user = await userService.addUser(email, password);
-        await userService.updateUser(email, {username, email})
-        res.status(200).json({username, email})
+        await userService.updateUser(email, {username, email, taskAccepted, taskCreated, tasker})
+        res.status(200).json({userData: {username, email, taskAccepted, taskCreated, tasker}})
       } else{
         throw {message: `Sorry, that email is already taken.`}
       }

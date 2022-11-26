@@ -22,6 +22,33 @@ router.get('/all', async (req, res) => {
     }
 })
 
+router.get('/tutoring', async(req, res) => {
+    try{
+        const taskList = await userService.getTasks('Tutoring')
+        res.status(200).json({tasks: taskList})
+    } catch(err){
+        res.status(404).json({ error: err.message || err.toString() });
+    }
+})
+
+router.get('/swipes', async(req, res) => {
+    try{
+        const taskList = await userService.getTasks('Swipe Trade')
+        res.status(200).json({tasks: taskList})
+    } catch(err){
+        res.status(404).json({ error: err.message || err.toString() });
+    }
+})
+
+router.get('/rides', async(req, res) => {
+    try{
+        const taskList = await userService.getTasks('Ride Share')
+        res.status(200).json({tasks: taskList})
+    } catch(err){
+        res.status(404).json({ error: err.message || err.toString() });
+    }
+})
+
 
 //need task key(id)
 router.get('/getTaskCounter', async (req, res) => {
@@ -96,6 +123,7 @@ router.get('/:key', async(req, res) => {
         res.status(404).json({ error: err.message || err.toString() });
     }
 });
+
 
 
 

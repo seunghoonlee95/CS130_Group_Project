@@ -1,5 +1,5 @@
 const firebase = require("firebase/app");
-const {getFirestore, setDoc, doc, collection, getDoc, where, getDocs} = require("firebase/firestore");
+const {getFirestore, setDoc, doc, collection, getDoc, where, query, getDocs} = require("firebase/firestore");
 const { 
   getAuth, 
   signInWithEmailAndPassword,
@@ -57,6 +57,7 @@ exports.checkUsername = async (username) => {
   return safe
 }
 
+
 exports.updateUser = async (email, userData) => {
   const userRef = doc(db, "users", `${email}`)
   await setDoc(userRef, userData, {merge: true})
@@ -112,10 +113,21 @@ exports.getAllTasks = async () => {
   const snapshot = await getDocs(taskRef)
   snapshot.forEach((doc) => {
     const data = doc.data()
-    if(data.hasOwnProperty('key')){
+    if(data.hasOwnProperty('key') && data.key !== -1){
       taskList.push(data)
     }
   })
+  return taskList
+}
+
+exports.getTasks = async (category) => {
+  const q = query(collection(db, "tasks"), where("category", "==", category))
+  const taskList = []
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    const data = doc.data()
+    taskList.push(data)
+  });
   return taskList
 }
 
