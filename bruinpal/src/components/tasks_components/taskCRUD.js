@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Componen, useEffect } from "react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
+import { formControlClasses } from "@mui/material";
 
 export default class TaskCRUD extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class TaskCRUD extends React.Component {
     };
     this.submitNewTask = this.submitNewTask.bind(this);
     this.state.submitted = false;
+    console.log(this.state);
   }
   /*
     Task Info:
@@ -54,7 +56,6 @@ export default class TaskCRUD extends React.Component {
     const requestOptions = {
       method: "post",
       credentials: "same-origin",
-      headers: { "Content-Type": "application/json" },
       body: data,
     };
     fetch("api/tasks/new", requestOptions)
@@ -71,12 +72,42 @@ export default class TaskCRUD extends React.Component {
             tasks = JSON.parse(tasks);
             tasks.push(JSON.parse(data));
             window.localStorage.setItem("tasks", JSON.stringify(tasks));
-            let taskCounter = window.localStorage.getItem("taskKey");
+            let taskCounter = parseInt(window.localStorage.getItem("taskKey"));
             taskCounter = taskCounter + 1;
+            console.log("taskCounter", taskCounter);
             window.localStorage.setItem("taskKey", taskCounter);
-            this.state.submitted = true;
+            this.setState({ submitted: true });
+            return taskCounter;
           }
         }
+      })
+      .then((taskCounter) => {
+        //need to get taskCreated list from db and append new task + update it
+        let list = this.state.taskCreated;
+        let counter = parseInt(window.localStorage.getItem("taskKey"));
+        let value = counter - 1;
+        list.push(value);
+        let data = { taskCreated: list, email: this.state.email };
+        const userUpdateOptions = {
+          method: "post",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        };
+        console.log("userData", userUpdateOptions.body);
+        fetch("api/user/update", userUpdateOptions)
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.error) {
+              console.log(result.error);
+            } else {
+              console.log(result);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            console.log("handle errors later plz");
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -130,7 +161,7 @@ export default class TaskCRUD extends React.Component {
               <label>Price</label>
               <input
                 type="text"
-                name="description"
+                name="price"
                 className="form-control mt-1"
                 placeholder="ex. $8"
                 minLength={1}

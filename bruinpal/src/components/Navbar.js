@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import logo from "../images/logo.png";
 import TaskDropDown from "./TaskDropDown";
 
-const Navbar = () => {
-  let loggedIn = window.localStorage.getItem("loggedIn");
+function Navbar() {
+  let loggedIn = false;
+  if (window.localStorage.getItem("loggedIn") !== null) {
+    loggedIn = window.localStorage.getItem("loggedIn");
+  }
+
   return (
     <div>
       <nav className="navbar">
@@ -26,7 +30,7 @@ const Navbar = () => {
               Tasks
             </NavLink> */}
           </div>
-          {loggedIn === "false" && (
+          {loggedIn !== "true" && (
             <div>
               <NavLink to="/loginsignup" className="linkmenuItem">
                 Login / Sign Up
@@ -58,6 +62,6 @@ const Navbar = () => {
       </nav>
     </div>
   );
-};
+}
 
 export default Navbar;
