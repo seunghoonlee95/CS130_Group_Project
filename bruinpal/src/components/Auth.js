@@ -50,6 +50,7 @@ class Auth extends React.Component {
           this.setState({ loggedIn: false, username: "", userInfo: {} });
           window.localStorage.setItem("loggedIn", "false");
           window.location.reload(false);
+          localStorage.clear();
         }
       })
       .catch((err) => {
@@ -102,7 +103,6 @@ class Auth extends React.Component {
               }
             });
         }
-        window.location.reload(false);
       })
       .catch((err) => {
         console.log(err);
@@ -139,8 +139,8 @@ class Auth extends React.Component {
             "userInfo",
             JSON.stringify(result.userData)
           );
+
           window.localStorage.setItem("loggedIn", "true");
-          window.location.reload(false);
         }
       })
       .catch((err) => {
@@ -261,7 +261,6 @@ class Auth extends React.Component {
   };
 
   logOut = () => {
-    //TODO: maybe navigate to user page or something else?
     return (
       <div className="d-grid gap-2 mt-3">
         <br />

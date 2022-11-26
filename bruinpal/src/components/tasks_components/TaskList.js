@@ -68,6 +68,10 @@ function TaskList() {
         });
     }
 
+    async function setKey(key) {
+      await window.localStorage.setItem("taskKey", key);
+    }
+
     async function getCurrentTaskCounter() {
       const requestOptions = {
         method: "get",
@@ -81,8 +85,10 @@ function TaskList() {
             console.log("Error getting tasks. Please try again.");
             console.log(result);
           } else {
-            window.localStorage.setItem("taskKey", result.key);
-            return result;
+            //console.log("key", result.key);
+            setKey(result.key).then(() => {
+              return result;
+            });
           }
         })
         .catch((err) => {
@@ -91,20 +97,30 @@ function TaskList() {
     }
 
     if (window.localStorage.getItem("taskKey") === null) {
-      window.localStorage.setItem("taskKey", -1);
+      window.localStorage.setItem("taskKey", 999999);
     }
-    let data = JSON.parse(window.localStorage.getItem("tasks"));
+    let data = [];
+    if (window.localStorage.getItem("tasks") !== null) {
+      data = JSON.parse(window.localStorage.getItem("tasks"));
+    }
     const dataLength = data.length;
 
-    getCurrentTaskCounter().then(() => {
-      console.log("test2");
-      const currKey = JSON.parse(window.localStorage.getItem("taskKey"));
-      if (currKey > dataLength) {
+    getCurrentTaskCounter().then((result) => {
+      let currKey = window.localStorage.getItem("taskKey");
+      if (window.localStorage.getItem("taskKey") === null) {
+        window.localStorage.setItem("taskKey", 99999);
+      }
+      //console.log(currKey, dataLength);
+      if (currKey > dataLength + 1) {
         console.log("updating local task list");
-        getTasks().then(() => {
-          data = JSON.parse(window.localStorage.getItem("tasks"));
-          //window.location.reload(false);
-        });
+        getTasks()
+          .then(() => {
+            data = JSON.parse(window.localStorage.getItem("tasks"));
+            //window.location.reload(false);
+          })
+          .then(() => {
+            window.location.reload(false);
+          });
       }
     });
   });
@@ -182,7 +198,8 @@ function TaskList() {
                                 task_category: `${cell.row.original.category}`,
                                 task_price: `${cell.row.original.price}`,
                                 task_description: `${cell.row.original.description}`,
-                                task_timeLocation: `${cell.row.original.timelocation}`,
+                                task_datetime: `${cell.row.original.datetime}`,
+                                task_location: `${cell.row.original.location}`,
                                 task_status: `${cell.row.original.status}`,
                               }}
                               className="taskLink"
