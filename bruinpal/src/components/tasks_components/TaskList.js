@@ -21,25 +21,23 @@ import { Select } from "@mui/material";
 //TODO make decent search bar and filters
 //TODO style other places in this page
 
-
 function TaskList() {
   //const data = getData();
-  let category = 'all'
-  let data = []
-  if(window.localStorage.getItem('category') !== null){
-    category = window.localStorage.getItem('category')
+  let category = "all";
+  let data = [];
+  if (window.localStorage.getItem("category") !== null) {
+    category = window.localStorage.getItem("category");
   }
-  if(window.localStorage.getItem('tasks') !== null){
-    data = JSON.parse(window.localStorage.getItem('tasks'))
+  if (window.localStorage.getItem("tasks") !== null) {
+    data = JSON.parse(window.localStorage.getItem("tasks"));
   }
-  
-  if(category !== 'all'){
-    console.log('filtered data: ')
-    data = JSON.parse(window.localStorage.getItem('tasks')).filter(entry => {
-      return entry.category === category
-    })
-    console.log(data)
-    
+
+  if (category !== "all") {
+    console.log("filtered data: ");
+    data = JSON.parse(window.localStorage.getItem("tasks")).filter((entry) => {
+      return entry.category === category;
+    });
+    console.log(data);
   }
   const columns = React.useMemo(() => DummyTasks.headers);
 
@@ -49,74 +47,89 @@ function TaskList() {
 
   useEffect(() => {
     //idea: save counter to session state, every reload get new counter, if it has increased recall get all tasks
-    async function getTasks(){
+    async function getTasks() {
       const requestOptions = {
         method: "get",
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-      }
-      fetch('api/tasks/all', requestOptions).then(res => res.json()).then(result => {
-        if(result.error){
-          console.log('Error getting tasks. Please try again.')
-          console.log(result)
-        }else{
-          window.localStorage.setItem('tasks', JSON.stringify(result.tasks))
-        }
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-
-    async function getCurrentTaskCounter(){
-      const requestOptions = {
-        method: "get",
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-      }
-      fetch('api/tasks/getTaskCounter', requestOptions).then(res => res.json()).then(result => {
-        if(result.error){
-          console.log('Error getting tasks. Please try again.')
-          console.log(result)
-        }else{
-          window.localStorage.setItem('taskKey', result.key)
-          return result
-        }
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-    
-    if(window.localStorage.getItem('taskKey') === null){
-      window.localStorage.setItem('taskKey', -1)
-    }
-    let data = JSON.parse(window.localStorage.getItem('tasks'))
-    const dataLength = data.length
-    getCurrentTaskCounter().then(() => {
-      const currKey = JSON.parse(window.localStorage.getItem('taskKey'))
-      if(currKey > dataLength){
-        console.log('updating local task list')
-        getTasks().then(() => {
-          data = JSON.parse(window.localStorage.getItem('tasks'))
-          window.location.reload(false);
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+      };
+      fetch("api/tasks/all", requestOptions)
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.error) {
+            console.log("Error getting tasks. Please try again.");
+            console.log(result);
+          } else {
+            window.localStorage.setItem("tasks", JSON.stringify(result.tasks));
+          }
         })
-      } 
-    })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
-  })
+    async function getCurrentTaskCounter() {
+      const requestOptions = {
+        method: "get",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+      };
+      fetch("api/tasks/getTaskCounter", requestOptions)
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.error) {
+            console.log("Error getting tasks. Please try again.");
+            console.log(result);
+          } else {
+            window.localStorage.setItem("taskKey", result.key);
+            return result;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    if (window.localStorage.getItem("taskKey") === null) {
+      window.localStorage.setItem("taskKey", -1);
+    }
+    let data = JSON.parse(window.localStorage.getItem("tasks"));
+    const dataLength = data.length;
+
+    getCurrentTaskCounter().then(() => {
+      console.log("test2");
+      const currKey = JSON.parse(window.localStorage.getItem("taskKey"));
+      if (currKey > dataLength) {
+        console.log("updating local task list");
+        getTasks().then(() => {
+          data = JSON.parse(window.localStorage.getItem("tasks"));
+          //window.location.reload(false);
+        });
+      }
+    });
+  });
 
   return (
     <React.Fragment>
       <div>
-        <select name="categories" id="cat-select" onChange={(e) => {
-          window.localStorage.setItem('category', e.target.value)
-          console.log(e.target.value);
-          window.location.reload(false);
-      } }>
-        <option value="all">{category ? 'Current Choice: ' + category : 'Please Choose A Category'}</option>
-        <option value="all">All</option>
-        <option value="Tutoring">Tutoring</option>
-        <option value="Swipe Trade">Swipe Trade</option>
-        <option value="Ride Share">Ride Share</option>
+        <select
+          name="categories"
+          id="cat-select"
+          onChange={(e) => {
+            window.localStorage.setItem("category", e.target.value);
+            console.log(e.target.value);
+            window.location.reload(false);
+          }}
+        >
+          <option value="all">
+            {category
+              ? "Current Choice: " + category
+              : "Please Choose A Category"}
+          </option>
+          <option value="all">All</option>
+          <option value="Tutoring">Tutoring</option>
+          <option value="Swipe Trade">Swipe Trade</option>
+          <option value="Ride Share">Ride Share</option>
         </select>
       </div>
       <TableContainer className="tasklist">

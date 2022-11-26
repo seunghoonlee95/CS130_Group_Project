@@ -11,7 +11,6 @@ import {
 } from "mdb-react-ui-kit";
 import Stars from "./Stars";
 import { Button } from "bootstrap";
-import { Link } from "react-router-dom";
 
 //need to add more fields for user info: make sure to update backend register/login calls and frontend Auth.js also when adding these
 //fields!!!!!
@@ -98,12 +97,7 @@ class UserCard extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <Link to="/taskCRUD">Create New Task</Link>
-        {this.renderUserInfo()}
-      </div>
-    );
+    return <div>{this.renderUserInfo()}</div>;
   }
 }
 

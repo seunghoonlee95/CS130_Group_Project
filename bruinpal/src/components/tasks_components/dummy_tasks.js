@@ -17,15 +17,19 @@ export default {
       accessor: "description",
     },
     {
-      Header: "Time & Location",
-      accessor: "timelocation",
+      Header: "Time",
+      accessor: "datetime",
+    },
+    {
+      Header: "Location",
+      accessor: "location",
     },
     {
       Header: "Status",
       accessor: "status",
     },
   ],
-  
+
   tasks: [
     {
       key: 0,
