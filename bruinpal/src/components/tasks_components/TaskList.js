@@ -60,7 +60,6 @@ function TaskList() {
           console.log('Error getting tasks. Please try again.')
           console.log(result)
         }else{
-          console.log(result.tasks)
           window.localStorage.setItem('tasks', JSON.stringify(result.tasks))
         }
       }).catch(err => {
@@ -79,26 +78,30 @@ function TaskList() {
           console.log('Error getting tasks. Please try again.')
           console.log(result)
         }else{
-          return result.key
+          window.localStorage.setItem('taskKey', result.key)
+          return result
         }
       }).catch(err => {
         console.log(err)
       })
     }
-
+    
     if(window.localStorage.getItem('taskKey') === null){
       window.localStorage.setItem('taskKey', -1)
     }
-    //check if there are tasks in database not in local storage
-    const localKey = window.localStorage.getItem('taskKey')
-    const currentKey = getCurrentTaskCounter()
-    if(currentKey > localKey){
-      console.log('updating local task list')
-      window.localStorage.setItem('taskKey', currentKey)
-      getTasks()
-    } 
-    const data = JSON.parse(window.localStorage.getItem('tasks'))
-    console.log('retrieved data', data)
+    let data = JSON.parse(window.localStorage.getItem('tasks'))
+    const dataLength = data.length
+    getCurrentTaskCounter().then(() => {
+      const currKey = JSON.parse(window.localStorage.getItem('taskKey'))
+      if(currKey > dataLength){
+        console.log('updating local task list')
+        getTasks().then(() => {
+          data = JSON.parse(window.localStorage.getItem('tasks'))
+          window.location.reload(false);
+        })
+      } 
+    })
+
   })
 
   return (
