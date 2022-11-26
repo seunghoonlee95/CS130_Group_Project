@@ -56,6 +56,7 @@ export default class TaskCRUD extends React.Component {
     const requestOptions = {
       method: "post",
       credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
       body: data,
     };
     fetch("api/tasks/new", requestOptions)
