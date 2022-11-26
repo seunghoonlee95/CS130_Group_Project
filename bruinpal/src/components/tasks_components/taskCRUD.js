@@ -45,11 +45,7 @@ export default class TaskCRUD extends React.Component {
             <div className="form-group mt-3">
               <label>Category</label>
               <select name="categories" id="cat-select">
-                <option value="all">
-                  {category
-                    ? "Current Choice: " + category
-                    : "Please Choose A Category"}
-                </option>
+                <option value="all"></option>
                 <option value="all">All</option>
                 <option value="Tutoring">Tutoring</option>
                 <option value="Swipe Trade">Swipe Trade</option>
