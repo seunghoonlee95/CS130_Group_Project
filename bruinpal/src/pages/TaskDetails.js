@@ -13,8 +13,24 @@ function TaskDetails(props) {
   const [status, setStatus] = useState(loc.state.task_status);
   const [datetime, setTimeLocation] = useState(loc.state.task_datetime);
   const [location] = useState(loc.state.task_location);
+  const [taskeremail] = useState(loc.state.task_taskeremail);
+  const [taskername] = useState(loc.state.task_taskername);
+  const [key] = useState(loc.state.task_key);
 
-  const [username, useremail, tasker, taskAccepted] = useState("userInfo");
+  let userInfo = JSON.parse(window.localStorage.getItem("userInfo")) || {
+    username: "",
+    email: "",
+    tasker: false,
+    taskAccepted: [],
+    taskCreated: [],
+  };
+  console.log("tasker", userInfo.tasker);
+
+  //accept task, update task, update user taskAccepted list, then call email
+  //quick change: get rid of counter in task list just callall
+  function acceptTask(event) {
+    console.log("lots of work");
+  }
 
   return (
     <React.Fragment>
@@ -33,7 +49,20 @@ function TaskDetails(props) {
       <h3>{datetime}</h3>
       <h1>Task location</h1>
       <h3>{location}</h3>
-
+      {userInfo.tasker && status === "Open" && (
+        <div>
+          <div className="d-grid gap-2 mt-3">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              // onClick={this.acceptTask}
+            >
+              Accept Task
+            </button>
+          </div>
+        </div>
+      )}
+      _{}
       <Footer />
     </React.Fragment>
   );
