@@ -1,5 +1,6 @@
 const sgMail = require("@sendgrid/mail");
-// sgMail.setApiKey();
+// require("./twilio.env");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // const msg = {
 //   to: "hussein1171@g.ucla.edu",
