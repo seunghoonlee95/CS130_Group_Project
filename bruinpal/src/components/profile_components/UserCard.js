@@ -14,6 +14,17 @@ import { Button } from "bootstrap";
 
 //need to add more fields for user info: make sure to update backend register/login calls and frontend Auth.js also when adding these
 //fields!!!!!
+
+/*
+each user has taskCreated, taskAccepted: 
+if session storage of tasks is null: call tasks/all and populate it
+cross reference keys in taskCreated, taskAceepted to keys is all tasks tog enerate list of tasks
+display in link format just like tasklist does
+edit taskDescription card to include 2 buttons
+:if user created task: can change status to Complete
+:if tasker is viewing tasks and task is Open: can accept task and move to In Progress
+
+*/
 class UserCard extends React.Component {
   constructor(props) {
     super(props);
