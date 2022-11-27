@@ -9,13 +9,12 @@ import SmallTask from "./SmallTasks";
 
 //TODO search bar
 
-function MyPostingsCard(props) {
+function MyPostingsCard() {
   return (
     <MDBCard className="mb-4 mb-md-0">
       <MDBCardBody>
         <MDBCardText className="mb-4">
           <span className="text-primary font-italic me-1">My Postings</span>
-          {props.isOwner && <div className="small-task-switch">Show to others<MDBSwitch /></div>}
         </MDBCardText>
         <SmallTask />
         <SmallTask />

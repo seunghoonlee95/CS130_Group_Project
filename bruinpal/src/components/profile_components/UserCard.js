@@ -1,4 +1,5 @@
 import React from "react";
+import EditProfile from "./EditProfile";
 import {
   MDBCard,
   MDBCardTitle,
@@ -10,7 +11,6 @@ import {
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
 import Stars from "./Stars";
-import { Button } from "bootstrap";
 import { Link } from "react-router-dom";
 
 //need to add more fields for user info: make sure to update backend register/login calls and frontend Auth.js also when adding these
@@ -49,10 +49,8 @@ class UserCard extends React.Component {
             Senior CS student willing to help with CS hw/projects.
           </p>
           <div className="d-flex justify-content-center mb-2">
-            <MDBBtn>Follow</MDBBtn>
-            <MDBBtn outline className="ms-1">
-              Message
-            </MDBBtn>
+            {this.props.isOwner && <Link to="/editprofile"><MDBBtn className="profile-button mx-2">Edit Profile</MDBBtn></Link>} 
+            {this.props.isOwner && <Link  to="/taskCRUD"><MDBBtn className="profile-button mx-2">Create New Task</MDBBtn></Link>} 
           </div>
         </MDBCardBody>
 
@@ -100,7 +98,6 @@ class UserCard extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/taskCRUD">Create New Task</Link>
         {this.renderUserInfo()}
       </div>
     );
