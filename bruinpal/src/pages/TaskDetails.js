@@ -1,33 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
 
 function TaskDetails(props) {
-  const location = useLocation();
-  // console.log("location : ", location);
+  const loc = useLocation();
 
-  // console.log("location.state : ", location.state);
+  const [category, setCategory] = useState(loc.state.task_category);
+  const [customerName, setCustomerName] = useState(loc.state.task_customername);
+  const [description, setDescription] = useState(loc.state.task_description);
+  const [price, setPrice] = useState(loc.state.task_price);
+  const [status, setStatus] = useState(loc.state.task_status);
+  const [datetime, setTimeLocation] = useState(loc.state.task_datetime);
+  const [location] = useState(loc.state.task_location);
+  const [taskeremail] = useState(loc.state.task_taskeremail);
+  const [taskername] = useState(loc.state.task_taskername);
+  const [key] = useState(loc.state.task_key);
 
-  const [category, setCategory] = useState(location.state.task_category);
-  const [customerName, setCustomerName] = useState(
-    location.state.task_customername
-  );
-  const [description, setDescription] = useState(
-    location.state.task_description
-  );
-  const [price, setPrice] = useState(location.state.task_price);
-  const [status, setStatus] = useState(location.state.task_status);
-  const [timeLocation, setTimeLocation] = useState(
-    location.state.task_timeLocation
-  );
+  let userInfo = JSON.parse(window.localStorage.getItem("userInfo")) || {
+    username: "",
+    email: "",
+    tasker: false,
+    taskAccepted: [],
+    taskCreated: [],
+  };
+  console.log("tasker", userInfo.tasker);
 
-  console.log("category", category);
-  console.log("customerName", customerName);
-  console.log("description", description);
-  console.log("price", price);
-  console.log("status", status);
-  console.log("timeLocation", timeLocation);
+  //accept task, update task, update user taskAccepted list, then call email
+  //quick change: get rid of counter in task list just callall
+  function acceptTask(event) {
+    console.log("lots of work");
+  }
 
   return (
     <React.Fragment>
@@ -42,9 +45,24 @@ function TaskDetails(props) {
       <h3>{price}</h3>
       <h1>Task status</h1>
       <h3>{status}</h3>
-      <h1>Task timeLocation</h1>
-      <h3>{timeLocation}</h3>
-
+      <h1>Task time</h1>
+      <h3>{datetime}</h3>
+      <h1>Task location</h1>
+      <h3>{location}</h3>
+      {userInfo.tasker && status === "Open" && (
+        <div>
+          <div className="d-grid gap-2 mt-3">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              // onClick={this.acceptTask}
+            >
+              Accept Task
+            </button>
+          </div>
+        </div>
+      )}
+      _{}
       <Footer />
     </React.Fragment>
   );

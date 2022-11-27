@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Componen, useEffect } from "react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
+import { formControlClasses } from "@mui/material";
 
 export default class TaskCRUD extends React.Component {
   constructor(props) {
@@ -12,6 +13,9 @@ export default class TaskCRUD extends React.Component {
       taskAccepted: [],
       taskCreated: [],
     };
+    this.submitNewTask = this.submitNewTask.bind(this);
+    this.state.submitted = false;
+    console.log(this.state);
   }
   /*
     Task Info:
@@ -34,7 +38,85 @@ export default class TaskCRUD extends React.Component {
 
     */
 
-  submitNewTask(event) {}
+  submitNewTask(event) {
+    //get event form input
+    const formData = new FormData(event.currentTarget);
+    event.preventDefault();
+
+    var object = {};
+    formData.forEach((value, key) => (object[key] = value));
+    object.status = "Open";
+    object.customername = this.state.username;
+    object.customeremail = this.state.email;
+    object.taskername = "";
+    object.taskeremail = "";
+    var data = JSON.stringify(object);
+    console.log(data);
+
+    const requestOptions = {
+      method: "post",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: data,
+    };
+    fetch("api/tasks/new", requestOptions)
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.error) {
+          console.log(result.error);
+        } else {
+          console.log("New Task Created: ", result);
+          let tasks = window.localStorage.getItem("tasks");
+          if (tasks === null) {
+            tasks = [];
+          } else {
+            tasks = JSON.parse(tasks);
+            tasks.push(JSON.parse(data));
+            window.localStorage.setItem("tasks", JSON.stringify(tasks));
+            let taskCounter = parseInt(window.localStorage.getItem("taskKey"));
+            taskCounter = taskCounter + 1;
+            console.log("taskCounter", taskCounter);
+            window.localStorage.setItem("taskKey", taskCounter);
+            this.setState({ submitted: true });
+            return taskCounter;
+          }
+        }
+      })
+      .then((taskCounter) => {
+        //need to get taskCreated list from db and append new task + update it
+        let list = this.state.taskCreated;
+        let counter = parseInt(window.localStorage.getItem("taskKey"));
+        let value = counter - 1;
+        list.push(value);
+        let data = { taskCreated: list, email: this.state.email };
+        const userUpdateOptions = {
+          method: "post",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        };
+        console.log("userData", userUpdateOptions.body);
+        fetch("api/user/update", userUpdateOptions)
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.error) {
+              console.log(result.error);
+            } else {
+              console.log(result);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            console.log("handle errors later plz");
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("handle errors later plz");
+      });
+
+    //add customer email, customer username, status: "Open"
+  }
 
   newTaskForm() {
     return (
@@ -44,19 +126,11 @@ export default class TaskCRUD extends React.Component {
             <h3 className="Auth-form-title">New Task</h3>
             <div className="form-group mt-3">
               <label>Category</label>
-              <select name="categories" id="cat-select">
-                <option value="all"></option>
-                <option value="all">All</option>
+              <select name="category" id="cat-select">
                 <option value="Tutoring">Tutoring</option>
                 <option value="Swipe Trade">Swipe Trade</option>
                 <option value="Ride Share">Ride Share</option>
               </select>
-              <input
-                type="text"
-                name="username"
-                className="form-control mt-1"
-                placeholder="Username"
-              />
             </div>
             <div className="form-group mt-3">
               <label>Date and Time</label>
@@ -67,13 +141,31 @@ export default class TaskCRUD extends React.Component {
               />
             </div>
             <div className="form-group mt-3">
-              <label>Password</label>
+              <label>Location</label>
               <input
-                type="password"
-                name="password"
+                type="text"
+                name="location"
                 className="form-control mt-1"
-                placeholder="Password"
-                minLength={6}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label>Description</label>
+              <input
+                type="text"
+                name="description"
+                className="form-control mt-1"
+                placeholder="please describe your task"
+                minLength={15}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label>Price</label>
+              <input
+                type="text"
+                name="price"
+                className="form-control mt-1"
+                placeholder="ex. $8"
+                minLength={1}
               />
             </div>
             <div className="d-grid gap-2 mt-3">
@@ -91,7 +183,12 @@ export default class TaskCRUD extends React.Component {
     return (
       <React.Fragment>
         <Navbar />
-        {this.state.email !== "" && this.newTaskForm()}
+        {this.state.email !== "" && !this.state.submitted && this.newTaskForm()}
+        {this.state.submitted && (
+          <div>
+            <h1>Your Task Has Been Created</h1>
+          </div>
+        )}
         {this.state.email === "" && <div>Please Login To Create a Task</div>}
         <Footer />
       </React.Fragment>
