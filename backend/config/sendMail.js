@@ -1,7 +1,5 @@
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(
-  "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"
-);
+// sgMail.setApiKey();
 
 // const msg = {
 //   to: "hussein1171@g.ucla.edu",
