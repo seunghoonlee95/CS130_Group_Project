@@ -5,9 +5,7 @@ import UserCard from "../components/profile_components/UserCard.js"
 import InProgressCard from "../components/profile_components/InProgressCard.js"
 import MyPostingsCard from "../components/profile_components/MyPostingsCard.js"
 import SkillsCoursesCard from "../components/profile_components/SkillsCoursesCard.js"
-import SkillsCoursesToSelf from "../components/profile_components/SkillsCoursesToSelf";
-import SkillsCoursesToOthers from "../components/profile_components/SkillsCoursesToOthers";
-import {MDBCol, MDBContainer, MDBRow, MDBBreadcrumb, MDBBreadcrumbItem} from 'mdb-react-ui-kit';
+import {MDBCol, MDBContainer, MDBRow} from 'mdb-react-ui-kit';
 
 //DONE profile reference: https://mdbootstrap.com/docs/react/extended/profiles/
 //DONE divs: avatar, avg stars, skills & courses, tasks in progress, my postings
@@ -23,39 +21,19 @@ import {MDBCol, MDBContainer, MDBRow, MDBBreadcrumb, MDBBreadcrumbItem} from 'md
     //Whether user chooses to show is stored in an attribute corresponding to this particular course or skill.
 
 function Profile(props) {
-  let skillsCoursesCard;
-  let myPostingsCard;
-  let tasksInProgressCard;
-  if(props.isOwner){
-    skillsCoursesCard=<SkillsCoursesToSelf />;
-  }else{
-    skillsCoursesCard=<SkillsCoursesToOthers />;
-  }
+
   return(
     <React.Fragment>
       <Navbar />
       <section style={{ backgroundColor: '#eee' }}>
         <MDBContainer className="py-5">
-          <MDBRow>
-            <MDBCol>
-              <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-                <MDBBreadcrumbItem>
-                  <a href='#'>Home</a>
-                </MDBBreadcrumbItem>
-                <MDBBreadcrumbItem>
-                  <a href="#">User</a>
-                </MDBBreadcrumbItem>
-                <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
-              </MDBBreadcrumb>
-            </MDBCol>
-          </MDBRow>
-
+          
           <MDBRow>
             <MDBCol lg="4">
-              <UserCard />
+              <UserCard isOwner={props.isOwner}/>
             </MDBCol>
             <MDBCol lg="8">
-              {skillsCoursesCard}
+              <SkillsCoursesCard />
               <MDBRow>
                 <MDBCol md="6">
                   <InProgressCard isOwner={props.isOwner}/>
@@ -75,19 +53,3 @@ function Profile(props) {
 }
 
 export default Profile;
-
-
-/*
-  if(props.isOwner){  
-    //isOwner: boolean, true if this profile is being checked by its owner; false if by other users.
-    //TODO clarify this with backend guys
-    return(
-      <ProfileToSelf />
-    );
-  }else{
-    return(
-    <ProfileToOthers showMyPostings={true} showTasksInProgress={true}/>
-    );
-  }
-
-*/

@@ -226,9 +226,10 @@ margin: 0 2em;
 
 
 label {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 600;
   color: rgb(34, 34, 34);
+  margin:2% 0 0.7% 0;
 }
 
 /*TaskList styles*/
@@ -311,7 +312,7 @@ label {
   color: skyblue;
 }
 
-/***** Profile Page styles *****/
+/***** Profile Page starts *****/
 .small-task-switch{
   float: right;
   display:flex;
@@ -334,3 +335,61 @@ label {
 .small-task-money-location-deadine{
   float:right;
 }
+.profile-button{
+  margin-left: 2%;
+  margin-right: 2%;
+}
+/***** Profile Page ends *****/
+
+/***** Edit Profile Page start *****/
+.Edit-form-small-title{
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 20px;
+  color: rgb(34, 34, 34);
+  font-weight: 600;
+}
+.Edit-profile-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 75vh;
+}
+.Edit-form-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin:2%;
+  /* width: 100vw;
+  height: 75vh; */
+}
+
+.Edit-form {
+  width: 90vw;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 7%;
+  padding-bottom: 7%;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.Edit-form-content {
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.Edit-form-title{
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 2rem;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+}
+
+.Edit-form-group{
+  display: flex;
+  flex-direction: column;
+  margin:4% auto;
+}
+/***** Edit Profile Page end *****/
