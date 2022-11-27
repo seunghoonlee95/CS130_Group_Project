@@ -14,6 +14,7 @@ import RideShare from "./pages/RideShare";
 import Profile from "./pages/Profile";
 import TaskDetails from "./pages/TaskDetails";
 import TaskCRUD from "./components/tasks_components/taskCRUD";
+import EditProfile from "./components/profile_components/EditProfile";
 
 const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
@@ -28,6 +29,7 @@ root.render(
       <Route path="/taskdetails" element={<TaskDetails />} />
       <Route path="/profile" element={<Profile isOwner={true} />} />
       <Route path="/taskCRUD" element={<TaskCRUD />} />
+      <Route path="/editprofile" element={<EditProfile />}/>
     </Routes>
   </BrowserRouter>
 );
