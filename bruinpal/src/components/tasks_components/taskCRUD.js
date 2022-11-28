@@ -90,6 +90,7 @@ export default class TaskCRUD extends React.Component {
           }
         }
       })
+
       .then((taskCounter) => {
         //need to get taskCreated list from db and append new task + update it
         let list = this.state.taskCreated;
