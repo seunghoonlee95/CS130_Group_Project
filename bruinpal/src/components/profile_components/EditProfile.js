@@ -32,15 +32,29 @@ export default class EditProfile extends React.Component {
     event.preventDefault();
     console.log("stored data", this.state.profileInformation);
     var object = {};
+    let t = "";
     //need to cross refrence state profileInformation with what form changes, and send all otherwise it overwrites all profileInformation, not selected fields
     formData.forEach((value, key) => {
-      if (value !== "") {
-        object[key] = value;
-      } else if (value === "") {
-        object[key] = this.state.profileInformation[key];
+      if (key === "tasker") {
+        if (value !== "") {
+          if (value === "true") {
+            t = true;
+          } else {
+            t = false;
+          }
+        }
+      } else {
+        if (value !== "") {
+          object[key] = value;
+        } else if (value === "") {
+          object[key] = this.state.profileInformation[key];
+        }
       }
     });
-    var p = { profileInformation: object };
+    if (t === "") {
+      t = this.state.tasker;
+    }
+    var p = { profileInformation: object, tasker: t };
     p.email = this.state.email;
     console.log("email", p.email);
     var data = JSON.stringify(p);
@@ -156,6 +170,22 @@ export default class EditProfile extends React.Component {
                     className="form-control mt-1"
                     placeholder="Courses"
                   />
+                </div>
+
+                <div className="Edit-form-group mt-3">
+                  <h3 className="Auth-form-small-title">
+                    Would you like to be a Tasker?
+                  </h3>
+                  <label>Yes or No</label>
+                  <select name="tasker" id="cat-select">
+                    <option value="">
+                      No Change from my existing settings
+                    </option>
+                    <option value="true">Yes I want to be a tasker</option>
+                    <option value="false">
+                      No I just want to be a customer
+                    </option>
+                  </select>
                 </div>
 
                 <div className="d-grid gap-2 mt-3">
