@@ -7,7 +7,8 @@
 # To run locally
 
 Set up environment variables by running
-1.0 $ source ./backend/config/twilio.env
+1.0 $ cd backend
+2.0 $ source ./config/twilio.env
 Open up two terminals
 
 ## 1. Frontend: Navigate to .../bruinpal
