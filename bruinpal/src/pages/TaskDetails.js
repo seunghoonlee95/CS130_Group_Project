@@ -8,6 +8,9 @@ function TaskDetails(props) {
 
   const [category, setCategory] = useState(loc.state.task_category);
   const [customerName, setCustomerName] = useState(loc.state.task_customername);
+  const [customerEmail, setCustomerEmail] = useState(
+    loc.state.task_customeremail
+  );
   const [description, setDescription] = useState(loc.state.task_description);
   const [price, setPrice] = useState(loc.state.task_price);
   let [status, setStatus] = useState(loc.state.task_status);
@@ -94,33 +97,61 @@ function TaskDetails(props) {
             });
         }
 
-        getTasks().then(() => {
-          let data = JSON.parse(window.localStorage.getItem("tasks"));
-          userInfo.taskAccepted.push(parseInt(key));
-          let userUpdate = {};
-          userUpdate.taskAccepted = userInfo.taskAccepted;
-          userUpdate.email = userInfo.email;
-          const userUpdateOptions = {
-            method: "post",
-            credentials: "same-origin",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userUpdate),
-          };
-          console.log("userData", userUpdateOptions.body);
-          fetch("api/user/update", userUpdateOptions)
-            .then((res) => res.json())
-            .then((result) => {
-              if (result.error) {
-                console.log(result.error);
-              } else {
-                console.log(result);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              console.log("handle errors later plz");
-            });
-        });
+        getTasks()
+          .then(() => {
+            let data = JSON.parse(window.localStorage.getItem("tasks"));
+            userInfo.taskAccepted.push(parseInt(key));
+            let userUpdate = {};
+            userUpdate.taskAccepted = userInfo.taskAccepted;
+            userUpdate.email = userInfo.email;
+            const userUpdateOptions = {
+              method: "post",
+              credentials: "same-origin",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(userUpdate),
+            };
+            console.log("userData", userUpdateOptions.body);
+            fetch("api/user/update", userUpdateOptions)
+              .then((res) => res.json())
+              .then((result) => {
+                if (result.error) {
+                  console.log(result.error);
+                } else {
+                  console.log(result);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                console.log("handle errors later plz");
+              });
+          })
+          .then(() => {
+            let emailBody = {};
+            emailBody.customername = customerName;
+            emailBody.customeremail = customerEmail;
+            emailBody.description = description;
+            emailBody.taskername = userInfo.username;
+            emailBody.taskeremail = userInfo.email;
+            const emailOptions = {
+              method: "post",
+              credentials: "same-origin",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(emailBody),
+            };
+            fetch("api/lib/notifyTaskTaken", emailOptions)
+              .then((res) => res.json())
+              .then((result) => {
+                if (result.error) {
+                  console.log(result.error);
+                } else {
+                  console.log(result);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                console.log("handle errors later plz");
+              });
+          });
       });
 
     setStatus("In Progress");

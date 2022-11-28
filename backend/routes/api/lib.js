@@ -5,12 +5,12 @@ const sendGrid = require("../../config/sendMail.js");
 router.post("/notifyTaskTaken", async (req, res) => {
   let customer_html = `<p>Hi ${req.body.customername},</p>
     <p>We found a tasker for you! Find the task details below:</p>
-    <p>Tasker name: ${req.body.tasker}<br>
+    <p>Tasker name: ${req.body.taskername}<br>
     Tasker email: ${req.body.taskeremail}<br>
     Task Description: ${req.body.description}</p>
-    <p>Please contact ${req.body.tasker} to organize a meet-up!</p>
+    <p>Please contact ${req.body.taskername} to organize a meet-up!</p>
     <p>BruinPal</p>`;
-  let tasker_html = `<p>Hi ${req.body.tasker},</p>
+  let tasker_html = `<p>Hi ${req.body.taskername},</p>
     <p>You selected a task! Find the task details below:</p>
     <p>Customer name: ${req.body.customername}<br>
     Customer email: ${req.body.customeremail}<br>
