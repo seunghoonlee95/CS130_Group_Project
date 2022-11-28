@@ -13,7 +13,6 @@ import {
 import Stars from "./Stars";
 import { Link } from "react-router-dom";
 
-
 //need to add more fields for user info: make sure to update backend register/login calls and frontend Auth.js also when adding these
 //fields!!!!!
 
@@ -61,8 +60,16 @@ class UserCard extends React.Component {
             Senior CS student willing to help with CS hw/projects.
           </p>
           <div className="d-flex justify-content-center mb-2">
-            {this.props.isOwner && <Link to="/editprofile"><MDBBtn className="profile-button mx-2">Edit Profile</MDBBtn></Link>} 
-            {this.props.isOwner && <Link  to="/taskCRUD"><MDBBtn className="profile-button mx-2">Create New Task</MDBBtn></Link>} 
+            {this.props.isOwner && (
+              <Link to="/editprofile">
+                <MDBBtn className="profile-button mx-2">Edit Profile</MDBBtn>
+              </Link>
+            )}
+            {this.props.isOwner && (
+              <Link to="/taskCRUD">
+                <MDBBtn className="profile-button mx-2">Create New Task</MDBBtn>
+              </Link>
+            )}
           </div>
         </MDBCardBody>
 
@@ -109,9 +116,8 @@ class UserCard extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.renderUserInfo()}
-      </div>
+      //add editProfile buttone to return editProfile component
+      <div>{this.renderUserInfo()}</div>
     );
   }
 }
