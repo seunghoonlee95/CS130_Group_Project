@@ -50,9 +50,24 @@ margin: 0 2em;
   transition: 0.3s ease-out;
 }
 
-.comingSoon{
+.comingSoon {
   display: flex;
   justify-content: center;
+}
+
+.aboutUs {
+  margin: 1rem auto 0;
+  text-align: center;
+}
+
+.aboutUsList {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.aboutUsList div {
+  margin: 0 3rem;
+  width: 20rem;
 }
 
 .taskDropDown button{
