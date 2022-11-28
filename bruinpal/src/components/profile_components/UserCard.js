@@ -52,6 +52,57 @@ class UserCard extends React.Component {
     };
     this.state.tasks = JSON.parse(window.localStorage.getItem("tasks")) || [];
     this.renderUserInfo = this.renderUserInfo.bind(this);
+    this.refresh = this.refresh.bind(this);
+  }
+  refresh(e) {
+    e.preventDefault();
+    console.log("refresh");
+    const requestOptions = {
+      method: "get",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch("api/tasks/all", requestOptions)
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.error) {
+          console.log("Error getting tasks. Please try again.");
+          console.log(result);
+        } else {
+          window.localStorage.setItem("tasks", JSON.stringify(result.tasks));
+          this.state.tasks = result.tasks;
+          return result.tasks;
+        }
+      })
+      .then(() => {
+        const getUserOptions = {
+          method: "get",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+        };
+        fetch(`api/user/${this.state.email}`, getUserOptions)
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.error) {
+              console.log("error updating profile");
+              console.log(result.error);
+            } else {
+              //console.log(result);
+              console.log(result.userData);
+              window.localStorage.setItem(
+                "userInfo",
+                JSON.stringify(result.userData)
+              );
+              this.setState({
+                taskAccepted: result.userData.taskAccepted,
+                taskCreated: result.userData.taskCreated,
+              });
+            }
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   //update tasks
@@ -173,6 +224,13 @@ class UserCard extends React.Component {
               <MDBCol lg="8">
                 <SkillsCoursesCard courses={courses} skills={skills} />
                 <MDBRow>
+                  <center>
+                    <form onSubmit={this.refresh}>
+                      <MDBBtn className="profile-button mx-2">
+                        Refresh Task Information
+                      </MDBBtn>
+                    </form>
+                  </center>
                   <MDBCol md="6">
                     {this.state.tasker === true && (
                       <MyAcceptedTasksCard
