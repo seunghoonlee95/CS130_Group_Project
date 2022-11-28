@@ -26,6 +26,18 @@ function TaskDetails(props) {
   };
   console.log("tasker", userInfo.tasker);
 
+  //if key exists in taskCreated and status is inProgress: customer can set status as Finshed
+
+  //todo tmrw final grind:
+  //1. tasker accepts task and update task and send email
+  //2. customer can mark in-progress task they create as fisnished and update on backend to status: Finished
+  //3. Profile page display each taskCreated, taskAcceppted and let user click into task details here
+  //need to make slides and 6 minute video
+
+  //things other members can do: I will not be able to help much since I have so much to get done, please colloboarte amongst yourselves first
+  //profile pages, automatic testing, diagrams, about us page, connect Rheas update user settings to update user call and link to on profile button
+  //diagrams and slides
+
   //accept task, update task, update user taskAccepted list, then call email
   //quick change: get rid of counter in task list just callall
   function acceptTask(event) {
@@ -55,7 +67,7 @@ function TaskDetails(props) {
             <button
               type="submit"
               className="btn btn-primary"
-              // onClick={this.acceptTask}
+              onClick={this.acceptTask}
             >
               Accept Task
             </button>
