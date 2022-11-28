@@ -393,3 +393,36 @@ label {
   margin:4% auto;
 }
 /***** Edit Profile Page end *****/
+
+/***** AboutUs Page start *****/
+.aboutus-title{
+  font-size: 2.5rem;
+  font-weight:bolder;
+  font-family: 'Josefin Sans', sans-serif;
+  justify-content: center;
+  margin:5% auto 1% auto;
+}
+.aboutus-desc{
+  text-align: left;
+  font-size: 1.2rem;
+  margin:0 5% 3% 5%;
+}
+.contributor-name{
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.contributor-avatar{ 
+  position: relative; 
+  width: 100px; 
+  height: 100px; 
+  overflow: hidden; 
+  border-radius: 50%; 
+  margin:10%;
+} 
+.contributor-bio{
+  text-align: justify;
+  font-size: 1rem;
+  font-weight: 200;
+}
+/***** AboutUs Page end *****/
