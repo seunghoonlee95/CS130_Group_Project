@@ -55,21 +55,6 @@ margin: 0 2em;
   justify-content: center;
 }
 
-.aboutUs {
-  margin: 1rem auto 0;
-  text-align: center;
-}
-
-.aboutUsList {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.aboutUsList div {
-  margin: 0 3rem;
-  width: 20rem;
-}
-
 .taskDropDown button{
   /* font-family: 'Josefin Sans'; */
   background-color: transparent !important;
@@ -408,3 +393,68 @@ label {
   margin:4% auto;
 }
 /***** Edit Profile Page end *****/
+
+/***** AboutUs Page start *****/
+.aboutus-title{
+  font-size: 2.5rem;
+  font-weight:bolder;
+  font-family: 'Josefin Sans', sans-serif;
+  justify-content: center;
+  margin:5% auto 1% auto;
+}
+.aboutus-small-title{
+  margin: 1% auto;
+  text-align:"center";
+  font-weight: bolder;
+  font-family:'Josefin Sans',sans-serif;
+}
+.aboutus-desc{
+  text-align: left;
+  font-size: 1.2rem;
+  margin:0 5% 3% 5%;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+}
+.contributor-name{
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: 'Josefin Sans', sans-serif;
+}
+.contributor-avatar{ 
+  position: relative; 
+  width: 100px; 
+  height: 100px; 
+  overflow: hidden; 
+  border-radius: 50%; 
+  margin:10%;
+  font-family: 'Josefin Sans', sans-serif;
+} 
+.contributor-bio{
+  text-align: justify;
+  font-size: 1rem;
+  font-weight:normal;
+  font-family: 'Josefin Sans', sans-serif;
+}
+.aboutUs {
+  margin: 1rem auto 0;
+  text-align: center;
+}
+
+.aboutUsList {
+  display: flex;
+  justify-content: space-evenly;
+  font-family: 'Josefin Sans',sans-serif;
+}
+
+.aboutUsList div {
+  margin: 0 3rem;
+  width: 20rem;
+}
+.aboutus-task-title{
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: 'Josefin Sans', sans-serif;
+}
+/***** AboutUs Page end *****/
