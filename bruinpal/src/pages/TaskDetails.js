@@ -40,9 +40,11 @@ function TaskDetails(props) {
 
   //accept task, update task, update user taskAccepted list, then call email
   //quick change: get rid of counter in task list just callall
+  /*
   function acceptTask(event) {
     console.log("lots of work");
   }
+  */
 
   return (
     <React.Fragment>
@@ -64,11 +66,7 @@ function TaskDetails(props) {
       {userInfo.tasker && status === "Open" && (
         <div>
           <div className="d-grid gap-2 mt-3">
-            <button
-              type="submit"
-              className="btn btn-primary"
-              onClick={this.acceptTask}
-            >
+            <button type="submit" className="btn btn-primary">
               Accept Task
             </button>
           </div>

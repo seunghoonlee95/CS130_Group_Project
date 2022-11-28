@@ -11,10 +11,10 @@ import LoginSignup from "./pages/LoginSignup";
 import Tutoring from "./pages/Tutoring";
 import SwipeTrade from "./pages/SwipeTrade";
 import RideShare from "./pages/RideShare";
-import Profile from "./pages/Profile";
 import TaskDetails from "./pages/TaskDetails";
 import TaskCRUD from "./components/tasks_components/taskCRUD";
 import EditProfile from "./components/profile_components/EditProfile";
+import UserCard from "./components/profile_components/UserCard";
 
 const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
@@ -27,9 +27,9 @@ root.render(
       <Route path="/loginsignup" element={<LoginSignup />} />
       <Route path="/tasks" element={<Tasks category="all" />} />
       <Route path="/taskdetails" element={<TaskDetails />} />
-      <Route path="/profile" element={<Profile isOwner={true} />} />
+      <Route path="/profile" element={<UserCard />} />
       <Route path="/taskCRUD" element={<TaskCRUD />} />
-      <Route path="/editprofile" element={<EditProfile />}/>
+      <Route path="/editprofile" element={<EditProfile />} />
     </Routes>
   </BrowserRouter>
 );

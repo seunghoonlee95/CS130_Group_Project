@@ -1,5 +1,4 @@
 import React from "react";
-import EditProfile from "./EditProfile";
 import {
   MDBCard,
   MDBCardTitle,
@@ -10,6 +9,12 @@ import {
   MDBListGroup,
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
+import MyAcceptedTasksCard from "./InProgressCard.js";
+import MyPostingsCard from "./MyPostingsCard.js";
+import SkillsCoursesCard from "./SkillsCoursesCard.js";
+import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import Stars from "./Stars";
 import { Link } from "react-router-dom";
 
@@ -26,6 +31,7 @@ edit taskDescription card to include 2 buttons
 :if tasker is viewing tasks and task is Open: can accept task and move to In Progress
 
 */
+
 class UserCard extends React.Component {
   constructor(props) {
     super(props);
@@ -35,13 +41,55 @@ class UserCard extends React.Component {
       tasker: false,
       taskAccepted: [],
       taskCreated: [],
+      profileInformation: {
+        courses: [],
+        skills: [],
+        bio: "",
+        phonenumber: "",
+        socialmedia: "",
+        website: "",
+      },
     };
+    this.state.tasks = JSON.parse(window.localStorage.getItem("tasks")) || [];
+    this.renderUserInfo = this.renderUserInfo.bind(this);
   }
 
-  updateUserInfo() {
-    console.log("TODO");
-    //make easy form to fill in tasker or now, skill list?
+  //update tasks
+  componentDidMount() {
+    if (this.state.tasks.length === 0) {
+      async function getTasks() {
+        const requestOptions = {
+          method: "get",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+        };
+        fetch("api/tasks/all", requestOptions)
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.error) {
+              console.log("Error getting tasks. Please try again.");
+              console.log(result);
+            } else {
+              window.localStorage.setItem(
+                "tasks",
+                JSON.stringify(result.tasks)
+              );
+              return result.tasks;
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
+      getTasks().then(() => {
+        this.state.tasks = JSON.parse(window.localStorage.getItem("tasks"));
+        console.log("got tasks");
+        //window.location.reload(false);
+      });
+    }
   }
+
   renderUserInfo() {
     return (
       <MDBCard className="mb-4">
@@ -54,22 +102,16 @@ class UserCard extends React.Component {
             fluid
           />
           <p className="text-muted mb-1" style={{ fontWeight: "bold" }}>
-            Polar Bruin
+            {this.state.username}
           </p>
-          <p className="text-muted mb-4">
-            Senior CS student willing to help with CS hw/projects.
-          </p>
+          <p className="text-muted mb-4">{this.state.profileInformation.bio}</p>
           <div className="d-flex justify-content-center mb-2">
-            {this.props.isOwner && (
-              <Link to="/editprofile">
-                <MDBBtn className="profile-button mx-2">Edit Profile</MDBBtn>
-              </Link>
-            )}
-            {this.props.isOwner && (
-              <Link to="/taskCRUD">
-                <MDBBtn className="profile-button mx-2">Create New Task</MDBBtn>
-              </Link>
-            )}
+            <Link to="/editprofile">
+              <MDBBtn className="profile-button mx-2">Edit Profile</MDBBtn>
+            </Link>
+            <Link to="/taskCRUD">
+              <MDBBtn className="profile-button mx-2">Create New Task</MDBBtn>
+            </Link>
           </div>
         </MDBCardBody>
 
@@ -95,18 +137,19 @@ class UserCard extends React.Component {
           <MDBListGroup>
             <MDBListGroupItem>
               <MDBIcon fas icon="envelope-square" style={{ margin: "3px" }} />{" "}
-              pbruin@g.ucla.edu.test
+              {this.state.email}
             </MDBListGroupItem>
             <MDBListGroupItem>
-              <MDBIcon fas icon="phone" style={{ margin: "3px" }} /> (097)
-              234-5678
+              <MDBIcon fas icon="phone" style={{ margin: "3px" }} />{" "}
+              {this.state.profileInformation.phonenumber}
             </MDBListGroupItem>
             <MDBListGroupItem>
-              <MDBIcon fas icon="dove" style={{ margin: "3px" }} /> @polar_bruin
+              <MDBIcon fas icon="dove" style={{ margin: "3px" }} />
+              {this.state.profileInformation.socialmedia}
             </MDBListGroupItem>
             <MDBListGroupItem>
               <MDBIcon fas icon="globe" style={{ margin: "3px" }} />{" "}
-              http://www.polarbruin.com
+              {this.state.profileInformation.website}
             </MDBListGroupItem>
           </MDBListGroup>
         </MDBCardBody>
@@ -115,9 +158,39 @@ class UserCard extends React.Component {
   }
 
   render() {
+    const courses = this.state.profileInformation.courses;
+    const skills = this.state.profileInformation.skills;
+    const tasks = this.state.tasks;
+    const taskAccepted = this.state.taskAccepted;
+    const taskCreated = this.state.taskCreated;
     return (
-      //add editProfile buttone to return editProfile component
-      <div>{this.renderUserInfo()}</div>
+      <React.Fragment>
+        <Navbar />
+        <section style={{ backgroundColor: "#eee" }}>
+          <MDBContainer className="py-5">
+            <MDBRow>
+              <MDBCol lg="4">{this.renderUserInfo()}</MDBCol>
+              <MDBCol lg="8">
+                <SkillsCoursesCard courses={courses} skills={skills} />
+                <MDBRow>
+                  <MDBCol md="6">
+                    {this.state.tasker === true && (
+                      <MyAcceptedTasksCard
+                        tasks={tasks}
+                        taskAccepted={taskAccepted}
+                      />
+                    )}
+                  </MDBCol>
+                  <MDBCol md="6">
+                    <MyPostingsCard tasks={tasks} taskCreated={taskCreated} />
+                  </MDBCol>
+                </MDBRow>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+        </section>
+        <Footer />
+      </React.Fragment>
     );
   }
 }
