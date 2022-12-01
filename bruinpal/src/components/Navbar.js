@@ -14,7 +14,7 @@ function Navbar() {
     <div>
       <nav className="navbar">
         <div className="logoImageWrapper">
-          <Link to="/">
+          <Link data-testid="navbar-logo" to="/">
             <img src={logo} alt="logo" className="logoImage" />
           </Link>
         </div>
