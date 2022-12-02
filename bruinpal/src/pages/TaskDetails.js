@@ -34,7 +34,10 @@ function TaskDetails(props) {
 
   return (
     <React.Fragment>
+      <div data-testid="taskdetails-navbar">
       <Navbar />
+      </div>
+      <div data-testid="taskdetails-info">
       <h1>Task category</h1>
       <h3>{category}</h3>
       <h1>Task Customer</h1>
@@ -63,7 +66,10 @@ function TaskDetails(props) {
         </div>
       )}
       _{}
+      </div>
+      <div data-testid="taskdetails-footer">
       <Footer />
+      </div>
     </React.Fragment>
   );
 }

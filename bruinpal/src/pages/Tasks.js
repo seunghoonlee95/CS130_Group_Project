@@ -11,10 +11,16 @@ import { Select } from "@mui/material";
 function Tasks() {
   return (
     <React.Fragment>
+      <div data-testid="tasks-navbar">
       <Navbar />
+      </div>
       <h2>Task List</h2>
+      <div data-testid="tasks-list">
       <TaskList/>
+      </div>
+      <div data-testid="tasks-footer">
       <Footer />
+      </div>
     </React.Fragment>
   );
 }

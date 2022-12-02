@@ -12,10 +12,12 @@ import { NavLink, BrowserRouter as Router, Link } from "react-router-dom";
 function Home() {
   return (
     <React.Fragment>
+      <div data-testid="home-navbar">
       <Navbar />
+      </div>
       {/* <h1 className="homepageBannerTitle">UCLA Koreans</h1>
       <img src={roycehall} alt="homepageBanner" className="homepageBannerImg" /> */}
-      <div
+      <div data-testid="home-banner"
         className="homepageBanner"
         style={{ backgroundImage: `url(${roycehall})` }}
       >
@@ -27,7 +29,7 @@ function Home() {
         </div>
       </div>
       <h1 className="serviceIntro">Our Services</h1>
-      <div className="serviceWrapper">
+      <div data-testid="home-services" className="serviceWrapper">
         <div className="serviceCat">
           <NavLink to="/tasks/tutoring" className="linkmenuItem">
             <img src={tutoring} alt="tutoringImg" className="serviceImg" />
@@ -66,16 +68,20 @@ function Home() {
         </div>
       </div>
 
-      <div className="trustWrapper">
+      <div data-testid="home-trust" className="trustWrapper">
         <h1>Trusted by BruinHelp</h1>
         <img src={uclaLogo} alt="uclaLogo" className="uclaLogoImg" />
       </div>
+      <div data-testid="home-loginsignup">
       <NavLink to="/loginsignup" className="signupLink">
         <div>
           <h1>Sign up to get/provide help! → </h1>
         </div>
       </NavLink>
+      </div>
+      <div data-testid="home-footer">
       <Footer />
+      </div>
     </React.Fragment>
   );
 }
