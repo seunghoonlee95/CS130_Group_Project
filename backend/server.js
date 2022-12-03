@@ -3,6 +3,10 @@ const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
 const app = express();
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger_output.json");
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
