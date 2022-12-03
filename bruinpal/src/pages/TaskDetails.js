@@ -212,9 +212,9 @@ function TaskDetails(props) {
     <React.Fragment>
       <div data-testid="taskdetails-navbar">
       <Navbar />
+      </div>
       {!eventOccurred && (
-        <center>
-          </div>
+      <center>
       <div data-testid="taskdetails-info">
       <h1>Task category</h1>
           <h3>{category}</h3>
@@ -254,6 +254,7 @@ function TaskDetails(props) {
               </div>
             </div>
           )}
+          </div>
         </center>
       )}
       {eventOccurred && (
@@ -281,7 +282,6 @@ function TaskDetails(props) {
         </div>
       )}
 
-      </div>
       <div data-testid="taskdetails-footer">
       <Footer />
       </div>

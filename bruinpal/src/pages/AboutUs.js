@@ -28,8 +28,9 @@ function AboutUs() {
             <h4 className="aboutus-task-title">Rides</h4>
             It's tough to get around Los Angeles without a car. Find rideshares or make your own here.
           </div>
-        </div>
+      </div>
       <h2 className="aboutus-small-title">Contributors</h2>
+      <div data-testid="aboutus-container">
       <Container style={{margin:"1% auto", textAlign:"center"}}>
             <Row justify="center">
               <Col lg={2} md={4} sm={12}>
@@ -85,6 +86,8 @@ function AboutUs() {
               </Col>
             </Row>
         </Container>
+        </div>
+      <div data-testid="aboutus-footer">
       <Footer />
       </div>
     </React.Fragment>
