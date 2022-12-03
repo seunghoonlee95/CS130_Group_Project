@@ -26,7 +26,16 @@ Open up two terminals
 ## 3. Open http://localhost:3000/ in browser
 
     3.3 If setup correctly will see YOUR EXPRESS BACKEND IS CONNECTED TO REACT in Console
+## API Documentation
 
-## TODO: Setup firebase auth
+For this project, we used swagger-ui to autogenrate API documentation
+
+To see it for yourself, please navigate to ./backend and run
+
+npm install
+npm run swagger-autogen
+
+Then run project as detailed below.
+Navigate to http://localhost:5000/doc/ to see interactive documentation.
 
 https://firebase.google.com/docs/auth/web/firebaseui?authuser=0
