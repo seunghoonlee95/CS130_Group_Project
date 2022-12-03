@@ -119,6 +119,14 @@ class Auth extends React.Component {
     object.taskAccepted = [];
     object.taskCreated = [];
     object.tasker = false;
+    object.profileInformation = {
+      courses: "",
+      skills: "",
+      bio: "",
+      phonenumber: "",
+      socialmedia: "",
+      website: "",
+    };
     var data = JSON.stringify(object);
 
     const requestOptions = {

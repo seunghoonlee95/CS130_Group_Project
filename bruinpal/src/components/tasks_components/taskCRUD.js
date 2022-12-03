@@ -12,6 +12,14 @@ export default class TaskCRUD extends React.Component {
       tasker: false,
       taskAccepted: [],
       taskCreated: [],
+      profileInformation: {
+        courses: [],
+        skills: [],
+        bio: "",
+        phonenumber: "",
+        socialmedia: "",
+        website: "",
+      },
     };
     this.submitNewTask = this.submitNewTask.bind(this);
     this.state.submitted = false;
@@ -73,8 +81,8 @@ export default class TaskCRUD extends React.Component {
             tasks = JSON.parse(tasks);
             tasks.push(JSON.parse(data));
             window.localStorage.setItem("tasks", JSON.stringify(tasks));
-            let taskCounter = parseInt(window.localStorage.getItem("taskKey"));
-            taskCounter = taskCounter + 1;
+            //let taskCounter = parseInt(window.localStorage.getItem("taskKey"));
+            let taskCounter = result.key + 1;
             console.log("taskCounter", taskCounter);
             window.localStorage.setItem("taskKey", taskCounter);
             this.setState({ submitted: true });
@@ -82,10 +90,13 @@ export default class TaskCRUD extends React.Component {
           }
         }
       })
+
       .then((taskCounter) => {
         //need to get taskCreated list from db and append new task + update it
         let list = this.state.taskCreated;
-        let counter = parseInt(window.localStorage.getItem("taskKey"));
+        //let counter = parseInt(window.localStorage.getItem("taskKey"));
+        let counter = taskCounter;
+        console.log("issue if undefined", counter);
         let value = counter - 1;
         list.push(value);
         let data = { taskCreated: list, email: this.state.email };
