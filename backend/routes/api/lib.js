@@ -3,6 +3,26 @@ const router = express.Router();
 const sendGrid = require("../../config/sendMail.js");
 
 router.post("/notifyTaskTaken", async (req, res) => {
+  /*
+       #swagger.path = '/api/lib/notifyTaskTaken'
+       #swagger.method = 'POST'
+       #swagger.description = 'Endpoint to connect to Twilio and send email to tasker and customer'
+       #swagger.produces = ["application/json"]
+       #swagger.tags = ['Lib']
+       #swagger.parameters['EmailInfo'] = { in: 'body', description: 'Body of Request to send two emails with Twilio', schema: { $ref: "#/definitions/EmailInfo" }, } 
+       #swagger.responses[200] = { 
+               schema: { $ref: "#/definitions/SuccessMessage" },
+               description: 'Succesfully added user' 
+        } 
+       #swagger.responses[400] = { 
+               schema: { $ref: "#/definitions/ErrorMessage" },
+               description: 'Error in call' 
+        } 
+       #swagger.responses[404] = { 
+               schema: { $ref: "#/definitions/ErrorMessage" },
+               description: 'Error in connection' 
+        }
+       */
   let customer_html = `<p>Hi ${req.body.customername},</p>
     <p>We found a tasker for you! Find the task details below:</p>
     <p>Tasker name: ${req.body.taskername}<br>

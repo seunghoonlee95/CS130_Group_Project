@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## API Documentation
+
+For this project, we used swagger-ui to autogenrate API documentation.
+TO see it for yourself, please navigate to ./backend and run
+npm install
+npm run swagger-autogen
+
+Then run project as detailed below.
+Navigate to http://localhost:5000/doc/ to see interactive documentation.
+
 ## Available Scripts
 
 In the project directory, you can run:
