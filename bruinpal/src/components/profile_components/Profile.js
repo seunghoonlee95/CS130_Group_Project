@@ -9,8 +9,8 @@ import {MDBCol, MDBContainer, MDBRow} from 'mdb-react-ui-kit';
 
 //DONE profile reference: https://mdbootstrap.com/docs/react/extended/profiles/
 //DONE divs: avatar, avg stars, skills & courses, tasks in progress, my postings
-//TODO After user logs in, in Navbar, change '/loginsignup' to '/profilepage'
-//TODO to profile owner, show everything (toggles showing states); to others, show only those the owner allows to show
+//DONE After user logs in, in Navbar, change '/loginsignup' to '/profilepage'
+//POSTPONED to profile owner, show everything (toggles showing states); to others, show only those the owner allows to show
      //booleans: isPageOwner, showMyPostings, showTasksInProgress, showContact
         //if isPageOwner, show everything and the edit buttons
         //else
@@ -24,22 +24,33 @@ function Profile(props) {
 
   return(
     <React.Fragment>
+      <div data-testid="profile-navbar">
       <Navbar />
+      </div>
+
       <section style={{ backgroundColor: '#eee' }}>
         <MDBContainer className="py-5">
           
           <MDBRow>
             <MDBCol lg="4">
+              <div data-testid="profile-usercard">
               <UserCard isOwner={props.isOwner}/>
+              </div>
             </MDBCol>
             <MDBCol lg="8">
+              <div data-testid="profile-skillscoursescard" >
               <SkillsCoursesCard />
+              </div>
               <MDBRow>
                 <MDBCol md="6">
-                  <InProgressCard isOwner={props.isOwner}/>
+                  <div data-testid="profile-inprogresscard">
+                  <InProgressCard  isOwner={props.isOwner}/>
+                  </div>
                 </MDBCol>
                 <MDBCol md="6">
-                  <MyPostingsCard isOwner={props.isOwner}/>
+                  <div data-testid="profile-mypostingscard">
+                  <MyPostingsCard  isOwner={props.isOwner}/>
+                  </div>
                 </MDBCol>
               </MDBRow>
             </MDBCol>
@@ -47,7 +58,9 @@ function Profile(props) {
 
         </MDBContainer>
       </section>
-      <Footer />
+      <div data-testid="profile-footer">
+      <Footer/>
+      </div>
     </React.Fragment>
   );
 }

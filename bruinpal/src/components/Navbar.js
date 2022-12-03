@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Routes, Route, NavLink } from "react-router-dom";
 import logo from "../images/logo.png";
 import TaskDropDown from "./TaskDropDown";
 
@@ -14,13 +13,13 @@ function Navbar() {
     <div>
       <nav className="navbar">
         <div className="logoImageWrapper">
-          <Link to="/">
+          <Link data-testid="navbar-logo" to="/">
             <img src={logo} alt="logo" className="logoImage" />
           </Link>
         </div>
         <div className="navbarMenu">
           <div>
-            <NavLink to="/aboutus" className="linkmenuItem">
+            <NavLink data-testid="navbar-aboutus-navlink" to="/aboutus" className="linkmenuItem">
               About Us
             </NavLink>
           </div>
@@ -32,28 +31,28 @@ function Navbar() {
           </div>
           {loggedIn !== "true" && (
             <div>
-              <NavLink to="/loginsignup" className="linkmenuItem">
+              <NavLink data-testid="navbar-loginsignup-navlink" to="/loginsignup" className="linkmenuItem">
                 Login / Sign Up
               </NavLink>
             </div>
           )}
           {loggedIn === "true" && (
             <div>
-              <NavLink to="/taskCRUD" className="linkmenuItem">
+              <NavLink data-testid="navbar-createnewtask-navlink" to="/taskCRUD" className="linkmenuItem">
                 Create New Task
               </NavLink>
             </div>
           )}
           {loggedIn === "true" && (
             <div>
-              <NavLink to="/loginsignup" className="linkmenuItem">
+              <NavLink data-testid="navbar-logout-navlink" to="/loginsignup" className="linkmenuItem">
                 Logout
               </NavLink>
             </div>
           )}
           {loggedIn === "true" && (
             <div>
-              <NavLink to="/profile" className="linkmenuItem">
+              <NavLink data-testid="navbar-profile-navlink" to="/profile" className="linkmenuItem">
                 Profile
               </NavLink>
             </div>
